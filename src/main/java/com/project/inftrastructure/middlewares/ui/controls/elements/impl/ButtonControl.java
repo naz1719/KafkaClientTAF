@@ -15,7 +15,7 @@ public class ButtonControl extends WebControl implements Button {
     @Override
     public void clickJS(WebDriver driver) {
         String message = String.format(MessageTemplatesUI.CLICK_ON, name, page);
-        logger.info(message);
+        LOG.info(message);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", getWrappedElement());
     }
 }

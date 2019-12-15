@@ -1,7 +1,7 @@
 package ui;
 
-import com.project.services.ui.bo.SearchBO;
-import com.project.services.ui.bo.SearchResultBO;
+import com.project.services.ui.steps.SearchSteps;
+import com.project.services.ui.steps.SearchResultSteps;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,13 +9,13 @@ public class SearchTextTest extends BaseUI {
 
     @Test
     public void googleSearchTest() {
-        SearchBO searchBO = new SearchBO();
-        searchBO.openPortal("https://www.google.com.ua/");
-        searchBO
+        SearchSteps searchSteps = new SearchSteps();
+        searchSteps.openPortal("https://www.google.com.ua/");
+        searchSteps
                 .typeSearchText("SearchText")
                 .submitSearchText();
 
-        SearchResultBO searchResultBO = new SearchResultBO();
-        Assert.assertEquals(searchResultBO.getWebResults().size(), 0);
+        SearchResultSteps searchResultSteps = new SearchResultSteps();
+        Assert.assertEquals(searchResultSteps.getWebResults().size(), 0);
     }
 }

@@ -13,9 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-/**
- * Created by rishchenko on 21.08.2017.
- */
 public class AllureLogger {
     final static Logger logger = LoggerFactory.getLogger(AllureLogger.class);
 

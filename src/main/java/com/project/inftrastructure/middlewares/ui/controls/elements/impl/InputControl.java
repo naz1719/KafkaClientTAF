@@ -14,6 +14,6 @@ public class InputControl extends WebControl implements Input {
         getWrappedElement().clear();
         getWrappedElement().sendKeys(text);
         String message = String.format(MessageTemplatesUI.TYPE_TEXT, text, name, page);
-        logger.info(message);
+        LOG.info(message);
     }
 }

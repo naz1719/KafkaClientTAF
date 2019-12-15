@@ -1,5 +1,6 @@
 package com.project.inftrastructure.middlewares.ui.controls.base;
 
+import com.project.inftrastructure.execution.logger.TestLogger;
 import com.project.inftrastructure.execution.logger.templates.MessageTemplatesUI;
 import com.project.inftrastructure.middlewares.ui.controls.elements.impl.CheckboxControl;
 import org.openqa.selenium.By;
@@ -13,8 +14,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.interactions.Locatable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ import java.util.List;
  * Every custom control, like {@link CheckboxControl} extends from this WebControl.
  */
 public class WebControl implements Control {
-    protected static final Logger logger = LoggerFactory.getLogger("WD");
+    protected static final TestLogger LOG = TestLogger.getLogger();
     protected final WebElement webElement;
     protected final String name;
     protected final String page;
@@ -39,7 +38,7 @@ public class WebControl implements Control {
     @Override
     public void click() {
         message = String.format(MessageTemplatesUI.CLICK_ON, name, page);
-        logger.info(message);
+        LOG.info(message);
         webElement.click();
     }
 
@@ -63,7 +62,7 @@ public class WebControl implements Control {
     @Override
     public String getAttribute(String attributeName) {
         message = String.format(MessageTemplatesUI.GET_ATTRIBUTE, attributeName, name, page);
-        logger.info(message);
+        LOG.info(message);
         return webElement.getAttribute(attributeName);
     }
 
@@ -87,7 +86,7 @@ public class WebControl implements Control {
     @Override
     public String getText() {
         message = String.format(MessageTemplatesUI.GET_TEXT, name, page);
-        logger.info(message);
+        LOG.info(message);
         return webElement.getText();
     }
 
@@ -99,21 +98,21 @@ public class WebControl implements Control {
     @Override
     public boolean isSelected() {
         message = String.format(MessageTemplatesUI.IS_SELECTED, name, page);
-        logger.info(message);
+        LOG.info(message);
         return webElement.isSelected();
     }
 
     @Override
     public WebElement findElement(By by) {
         message = String.format(MessageTemplatesUI.FIND_ELEMENT, name, page);
-        logger.info(message);
+        LOG.info(message);
         return webElement.findElement(by);
     }
 
     @Override
     public boolean isEnabled() {
         message = String.format(MessageTemplatesUI.IS_ENABLED, name, page);
-        logger.info(message);
+        LOG.info(message);
         return webElement.isEnabled();
     }
 
@@ -125,7 +124,7 @@ public class WebControl implements Control {
     @Override
     public void clear() {
         message = String.format(MessageTemplatesUI.CLEAR_TEXT, name, page);
-        logger.info(message);
+        LOG.info(message);
         webElement.clear();
     }
 
@@ -146,20 +145,20 @@ public class WebControl implements Control {
     @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) {
         message = String.format(MessageTemplatesUI.GET_SCREENSHOT, name, page);
-        logger.info(message);
+        LOG.info(message);
         return this.webElement.getScreenshotAs(outputType);
     }
 
 
     public void moveToElement(WebDriver driver){
         message = String.format(MessageTemplatesUI.MOVE_TO, name, page);
-        logger.info(message);
+        LOG.info(message);
         new Actions(driver).moveToElement(webElement).perform();
     }
 
     public void focusJs(WebDriver driver) {
         message = String.format(MessageTemplatesUI.FOCUS_ON, name, page);
-        logger.info(message);
+        LOG.info(message);
         ((JavascriptExecutor) driver).executeScript("arguments[0].focus();", webElement);
     }
 

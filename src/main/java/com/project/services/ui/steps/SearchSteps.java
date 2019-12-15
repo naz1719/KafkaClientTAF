@@ -1,25 +1,23 @@
-package com.project.services.ui.bo;
+package com.project.services.ui.steps;
 
 
 import com.project.inftrastructure.middlewares.ui.UiConfiguration;
-import com.project.services.ui.BaseBO;
+import com.project.services.ui.BaseSteps;
 import com.project.services.ui.po.SearchPage;
 
-public class SearchBO extends BaseBO {
+public class SearchSteps extends BaseSteps {
     private SearchPage searchPageObject;
 
-    public SearchBO() {
+    public SearchSteps() {
         searchPageObject = new SearchPage(UiConfiguration.getInstance().getDriver());
     }
 
-    public SearchBO typeSearchText(String searchText) {
-        step("Search '" + searchText + "' in Google");
+    public SearchSteps typeSearchText(String searchText) {
         searchPageObject.typeSearchText(searchText);
         return this;
     }
 
-    public SearchBO submitSearchText() {
-        step("Submit search text");
+    public SearchSteps submitSearchText() {
         searchPageObject.submit();
         return this;
     }

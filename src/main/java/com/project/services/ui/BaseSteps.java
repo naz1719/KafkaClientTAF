@@ -5,7 +5,7 @@ import com.project.inftrastructure.execution.logger.TestLogger;
 import com.project.inftrastructure.execution.wait.UIWaitManager;
 import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 
-public abstract class BaseBO {
+public abstract class BaseSteps {
     protected UIWaitManager waitManager = UIWaitManager.getInstance();
     protected TestLogger LOG = TestLogger.getLogger();
 
