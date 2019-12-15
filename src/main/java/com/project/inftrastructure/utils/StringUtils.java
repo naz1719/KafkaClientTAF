@@ -19,11 +19,8 @@ public final class StringUtils {
    private static final String ALPHABET_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
    private static final String NUMERIC_CHARACTERS = "0123456789";
    private static final String SPECIAL_CHARACTERS = "~`!@#$%^&*()-_=+[{]}\\\\|;:\\'\\\",<.>/?";
-   private static final String CHARACTERS_WITH_ACCENTS = "ÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜŸäëïöüÿ";
-   private static final String ALL_SUPPORTED_CHARACTERS = ALPHABET_CHARACTERS + NUMERIC_CHARACTERS +
-         SPECIAL_CHARACTERS + CHARACTERS_WITH_ACCENTS;
    private static final String DEFAULT_CHARACTERS = ALPHABET_CHARACTERS + NUMERIC_CHARACTERS;
-   private static final String LETTERS_AND_NUMBERS_CHARACTERS = DEFAULT_CHARACTERS + CHARACTERS_WITH_ACCENTS;
+   private static final String LETTERS_AND_NUMBERS_CHARACTERS = DEFAULT_CHARACTERS ;
 
    private StringUtils() {
    }
@@ -54,13 +51,6 @@ public final class StringUtils {
     */
    public static String getRandomString(int length){
       return RandomStringUtils.random(length, DEFAULT_CHARACTERS);
-   }
-
-   /**
-    * Generates random string containing digits, english alphabet letters, special characters and letters with accent
-    */
-   public static String getRandomStringWithSpecialCharacters(int length){
-      return RandomStringUtils.random(length, ALL_SUPPORTED_CHARACTERS);
    }
 
    /**

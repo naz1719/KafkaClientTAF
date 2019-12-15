@@ -1,6 +1,6 @@
 package com.project.inftrastructure.execution.logger;
 
-import com.project.inftrastructure.middlewares.ui.driver.WebDriverManager;
+import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.openqa.selenium.OutputType;
@@ -33,7 +33,7 @@ public class AllureLogger {
     // 2. ----------- Capture screenshot --------
     @Attachment(value = "Page screenshot", type = "image/png")
     public static byte[] captureScreenshot() {
-        return ((TakesScreenshot) WebDriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) UiConfiguration.getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
 

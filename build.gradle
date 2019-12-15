@@ -11,7 +11,7 @@ sourceCompatibility = 1.8
 ext {
     allure_testng_version = '2.6.0'
     allure_rest_assured_version = '2.7.0'
-    selenium_version = '3.14.0'
+    selenium_version = '3.141.59'
 }
 
 repositories {
@@ -22,6 +22,7 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: selenium_version
     compile group: 'io.qameta.allure', name: 'allure-testng', version: allure_testng_version
     compile group: 'io.qameta.allure', name: 'allure-rest-assured', version: allure_rest_assured_version
+    compile("io.github.bonigarcia:webdrivermanager:3.7.1")
     compile group: 'com.jayway.restassured', name: 'rest-assured', version: '2.9.0'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'org.testng', name: 'testng', version: '6.14.3'

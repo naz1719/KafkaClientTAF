@@ -1,237 +1,193 @@
 package com.project.inftrastructure.execution.wait;
 
-import com.project.inftrastructure.middlewares.ui.driver.WebDriverManager;
-import com.project.inftrastructure.middlewares.ui.elements.Element;
-import org.apache.log4j.Logger;
+import com.beust.jcommander.internal.Nullable;
+import com.project.inftrastructure.execution.logger.TestLogger;
+import com.project.inftrastructure.middlewares.ui.UiConfiguration;
+import com.project.inftrastructure.middlewares.ui.controls.base.Control;
+import com.project.inftrastructure.middlewares.ui.controls.elements.Table;
+import com.project.inftrastructure.middlewares.ui.utils.CustomExpectedConditions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Duration;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Sleeper;
 import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import static com.project.inftrastructure.middlewares.ui.driver.WebDriverManager.getDriver;
 
 public class UIWaitManager {
-    public static final int DEFAULT_TIME_OUT = 60;// Seconds
+    private static final TestLogger LOG = TestLogger.getLogger();
     private static final UIWaitManager instance = new UIWaitManager();
-    private static final long DEFAULT_POLLING = 1L;
-    private static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.SECONDS;
-    private static final String ELEMENT_NOT_CLICKABLE = "Element wasn't clickable in %s sec";
-    private static final String ERROR_WAITING = "Some problem occurs during waiting";
-    private static final int COUNT_RETRY = 5;
-    private static final int DURATION = 3;
-    private static final Logger LOG = Logger.getLogger(UIWaitManager.class);
-    private static final int COUNT_RETRY_INCYCLE = 50;
-    private static final int RETRY_CYCLE_SLEEP = 500;
-    private long timeOut;
-    private TimeUnit timeUnitForTimeOut;
-    private long polling;
-    private TimeUnit timeUnitForPolling;
-
-    public UIWaitManager(int timeOut, TimeUnit unit) {
-        this.timeOut = timeOut;
-        this.timeUnitForTimeOut = unit;
-        this.polling = DEFAULT_POLLING;
-        this.timeUnitForPolling = DEFAULT_TIME_UNIT;
-    }
+    protected Wait<WebDriver> wait;
 
     private UIWaitManager() {
-        this.timeOut = DEFAULT_TIME_OUT;
-        this.timeUnitForTimeOut = DEFAULT_TIME_UNIT;
-        this.polling = DEFAULT_POLLING;
-        this.timeUnitForPolling = DEFAULT_TIME_UNIT;
     }
 
     public static UIWaitManager getInstance() {
         return instance;
     }
 
-    //    WaitManager.waitForCondition(() -> isContainerVisible, false);
-    public static void waitForCondition(Callable<Boolean> callable, boolean stopWaitIfExceptionOccurred) {
-        long beginTime = System.currentTimeMillis();
-        boolean continueWaiting = true;
-        while (continueWaiting && ((System.currentTimeMillis() - beginTime) < DEFAULT_TIME_OUT * 1000)) {
-            try {
-                if (callable.call()) {
-                    continueWaiting = false;
-                }
-            } catch (Exception e) {
-                if (stopWaitIfExceptionOccurred) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+    /**
+     * Wait until {@link WebElement} will be displayed
+     *
+     * @param webControl {@link WebElement} that you want to wait
+     * @return boolean of {@link WebElement} displaying state
+     */
+
+    protected boolean waitForControl(WebElement webControl, int sec) {
+        wait = getWait(sec);
+        return wait.until(webDriver -> webControl != null && webControl.isDisplayed());
     }
 
-    public static void waitForPageLoaded() {
-        ExpectedCondition<Boolean> expectation = driver -> {
-            if (driver != null) {
-                return WebDriverManager.executeScript("return document.readyState").toString().equals("complete");
-            }
-            throw new NullPointerException("Exception occurred while 'waitForPageLoaded', driver=null");
-        };
-
-        WebDriverWait wait = new WebDriverWait(getDriver(), 60);
-        wait.until(expectation);
+    protected boolean waitForAttribute(WebElement webControl, String attribute, String value, int sec) {
+        wait = getWait(sec);
+        return wait.until(webDriver -> webControl != null && webControl.getAttribute(attribute).equals(value));
     }
 
-    public static void waitForCondition(ExpectedCondition expectedCondition) {
-        WebDriverWait webDriverWait = new WebDriverWait(getDriver(), 60);
-        webDriverWait.until(expectedCondition);
+    /**
+     * Wait until document ready state will be completed
+     *
+     * @return boolean of document ready state
+     */
+    protected boolean waitJsToLoad() {
+        wait = getWait(300);
+        return wait.until(webDriver ->
+                ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+
     }
 
-    public static void sleepTimeOut(int millisecond) {
-        try {
-            Thread.sleep(millisecond);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    /**
+     * Get default wait. Using for other internal functions.
+     *
+     * @param timeout Time in seconds
+     * @return {@link FluentWait} with default configuration
+     */
+    protected FluentWait<WebDriver> getWait(int timeout) {
+        return new FluentWait<>(UiConfiguration.getInstance().getDriver())
+                .withTimeout(Duration.ofSeconds(timeout))
+                .pollingEvery(Duration.ofSeconds(1))
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class);
     }
 
-    public static void waitTimeOut(int time) {
-        getDriver().manage().timeouts().implicitlyWait(time, TimeUnit.MILLISECONDS);
+
+    public void switchFrame(WebElement frameLocator) {
+        UiConfiguration.getInstance().getDriver().switchTo().frame(frameLocator);
     }
 
-    public <T extends WebElement> void untilClickable(T element) {
-        untilClickable(element, COUNT_RETRY);
-    }
-
-    public <T extends WebElement> void untilClickable(T element, final int retryCount) {
-        int retry = 0;
-        while (retry < retryCount) {
-            try {
-                if (isClickable(element)) {
-                    return;
-                } else {
-                    Sleeper.SYSTEM_SLEEPER.sleep(new Duration(DURATION, DEFAULT_TIME_UNIT));
-                }
-            } catch (InterruptedException e) {
-                error(ERROR_WAITING);
-            }
-            retry++;
-        }
-        error(String.format(ELEMENT_NOT_CLICKABLE, retryCount * DURATION));
+    /**
+     * Selects either the first frame on the page, or the main document when a page contains iframes.
+     */
+    public void switchDefaultContent() {
+        UiConfiguration.getInstance().getDriver().switchTo().defaultContent();
     }
 
 
     /**
-     * Usage example:
-     * {@code new WaitManager(5, TimeUnit.SECONDS).waitConstTime();}
+     * Find all {@link WebElement}s within the current context using the given mechanism and default implicit wait
+     *
+     * @param webElement Context to use
+     * @param by         The location mechanism to use
+     * @return A list of all {@link WebElement}s, or an empty list if nothing matches.
      */
-    public void waitConstTime() {
-        try {
-            Sleeper.SYSTEM_SLEEPER.sleep(new Duration(timeOut, timeUnitForTimeOut));
-        } catch (InterruptedException e) {
-            error(ERROR_WAITING);
-        }
-    }
-
-    public <T extends WebElement> boolean isClickable(T webElement) {
-        return webElement.isDisplayed() && webElement.isEnabled();
-    }
-
-    public void waitElement(Element element) {
-        WebDriverWait waitDriver = new WebDriverWait(getDriver(), 30);
-        waitDriver.until(
-                ExpectedConditions.elementToBeClickable(element.getWebElement()));
-    }
-
-    private void error(String message) {
-        LOG.error(message);
-    }
-
-    private void debug(String message) {
-        LOG.debug(message);
+    public List<WebElement> findElementsWithTimeout(@Nullable WebElement webElement, By by) {
+        return findElementsWithTimeout(webElement, by, 1);
     }
 
     /**
-        Method waiting for 2 conditions to indicate that page is ready for further interactions
-        Condition 1 - JS verification than document has ready state
-        Condition 2 - Page loading spinner is not displayed
-        Notes: best value for sleep after checking elements state is 500, decreasing this value could prevent to instability of tests execution
+     * Find all {@link WebElement}s within the current context using the given mechanism  and implicit wait
+     *
+     * @param webElement Context to use
+     * @param by         The locating mechanism to use
+     * @param sec        Implicit wait in seconds
+     * @return A list of all {@link WebElement}s, or an empty list if nothing matches.
      */
-    public void waitForPageToBeReady() {
-        debug("Start of page waiter");
-        for (int i = 0; i < COUNT_RETRY_INCYCLE; i++) {
-            debug("\n waiting for all conditions. Count:" + i);
-            for (int j = 0; j < COUNT_RETRY_INCYCLE; j++) {
-                debug("\n waiting till pageIsReady state true. Count:" + j);
-                JavascriptExecutor js = (JavascriptExecutor) getDriver();
-                if (js.executeScript("return document.readyState").toString().equals("complete")) {
-                    break;
-                }
-                try {
-                    Thread.sleep(RETRY_CYCLE_SLEEP);
-                } catch (Exception e) {
-                    error(e.getLocalizedMessage());
-                }
-            }
+    public List<WebElement> findElementsWithTimeout(WebElement webElement, By by, int sec) {
+        List<WebElement> webElements;
+        WebDriver driver = UiConfiguration.getInstance().getDriver();
+        driver.manage().timeouts().implicitlyWait(sec, TimeUnit.SECONDS);
+        if (webElement != null) {
+            webElements = webElement.findElements(by);
+        } else {
+            webElements = driver.findElements(by);
         }
-        debug("End of page waiter");
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        return webElements;
     }
 
-    public void fluentElementWait(WebElement webElement) {
-        debug("Start of page waiter");
-        boolean pageIsReady = false;
-        boolean pageIsLoading = true;
-        for (int i = 0; i < COUNT_RETRY_INCYCLE; i++) {
-            debug("\n waiting for all conditions. Count:" + i);
-            for (int j = 0; j < COUNT_RETRY_INCYCLE; j++) {
-                debug("\n waiting till pageIsReady state true. Count:" + j);
-                JavascriptExecutor js = (JavascriptExecutor) getDriver();
-                if (js.executeScript("return document.readyState").toString().equals("complete")) {
-                    pageIsReady = true;
-                    break;
-                }
-                try {
-                    Thread.sleep(RETRY_CYCLE_SLEEP);
-                } catch (Exception e) {
-                    error(e.getLocalizedMessage());
-                }
-            }
-            if (pageIsReady) {
-                for (int k = 0; k < COUNT_RETRY_INCYCLE; k++) {
-                    debug("\n waiting till pageIsLoading state false. Count:" + k);
-                    Wait<WebDriver> wait = new FluentWait<>(getDriver())
-                            .withTimeout(DEFAULT_TIME_OUT, DEFAULT_TIME_UNIT)
-                            .pollingEvery(DEFAULT_POLLING, DEFAULT_TIME_UNIT)
-                            .ignoring(NoSuchElementException.class);
-                    WebElement element = wait.until(driver -> webElement);
+    public Boolean isElementDisplayed(By by) {
+        List<WebElement> listOfElements = UiConfiguration.getInstance().getDriver().findElements(by);
+        if (!listOfElements.isEmpty()) {
+            return listOfElements.get(0).isDisplayed();
+        } else {
+            return false;
+        }
+    }
 
-                    if (element != null) {
-                        try {
-                            String statusValue = element.getAttribute("style");
-                            if (statusValue.equalsIgnoreCase("display: none;"))
-                                pageIsLoading = false;
-                            break;
-                        } catch (org.openqa.selenium.StaleElementReferenceException e) {
-                            debug("spinner element was refreshed, page was overloaded.");
-                            pageIsReady = false;
-                            continue;
-                        }
-                    }
-                    try {
-                        Thread.sleep(RETRY_CYCLE_SLEEP);
-                    } catch (Exception e) {
-                        error(e.getLocalizedMessage());
-                    }
-                }
-            }
-            if (!pageIsLoading & pageIsReady)
-                break;
+    public String getPageTitle() {
+        return UiConfiguration.getInstance().getDriver().getTitle();
+    }
+
+    void waitForListVisibility(List<? extends Control> list, int seconds) {
+        getWait(seconds).until(CustomExpectedConditions.visibilityOfAllElements(list));
+    }
+
+    public void isElementIsClickable(WebElement webControl, int sec) {
+        getWait(sec).until(ExpectedConditions.elementToBeClickable(webControl));
+    }
+
+    protected void isElementIsVisible(WebElement webControl, int sec) {
+        getWait(sec).until(ExpectedConditions.visibilityOf(webControl));
+    }
+
+    protected void waitForStaleness(WebElement webControl, int sec) {
+        getWait(sec).until(ExpectedConditions.stalenessOf(webControl));
+    }
+
+
+    public void sortTable(Table table, String columnName, String condition, WebElement el) {
+        List<WebElement> columnsList = table.getHeaderElements();
+        wait = getWait(300);
+        columnsList.stream().filter(it -> it.getText().trim().equals(columnName))
+                .forEach(it -> wait.until(CustomExpectedConditions.conditionIsSelected(it, condition, table, columnName, el)));
+    }
+
+    public void refresh() {
+        WebDriver driver = UiConfiguration.getInstance().getDriver();
+        driver.get(driver.getCurrentUrl());
+        sleep(10000);
+    }
+
+    public void sleep(long sec) {
+        try {
+            Thread.sleep(sec);
+        } catch (InterruptedException e) {
+            LOG.error("Can't stop thread");
         }
-        if (pageIsLoading || !pageIsReady) {
-            error("Page wasn't loaded successfully");
+    }
+
+    public void clickJS(WebElement element) {
+        WebDriver webDriver = UiConfiguration.getInstance().getDriver();
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", element);
+    }
+
+    public void angularLoads() {
+        try {
+            WebDriver webDriver = UiConfiguration.getInstance().getDriver();
+            boolean angularReady = Boolean.parseBoolean(((JavascriptExecutor) webDriver).executeScript("return window.getAllAngularTestabilities().findIndex(x=>!x.isStable()) === -1").toString());
+            ExpectedCondition<Boolean> angularLoad = driver -> angularReady;
+
+            getWait(20).until(angularLoad);
+        } catch (WebDriverException ignored) {
+            LOG.error("Web driver exception. Can't wait for angular load");
         }
-        debug("End of page waiter");
     }
 }

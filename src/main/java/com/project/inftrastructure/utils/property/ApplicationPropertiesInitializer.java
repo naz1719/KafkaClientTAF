@@ -3,7 +3,7 @@ package com.project.inftrastructure.utils.property;
 import java.util.Properties;
 
 public class ApplicationPropertiesInitializer {
-    private static final String APPLICATION_PROPERTIES_FILE = "application.properties";
+    private static final String APPLICATION_PROPERTIES_FILE = "configuration.properties";
     private static ApplicationPropertiesInitializer instance;
 
     private static Properties PROPERTIES;
