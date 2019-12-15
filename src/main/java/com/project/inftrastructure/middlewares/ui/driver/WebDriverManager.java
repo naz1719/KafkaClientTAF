@@ -1,7 +1,7 @@
 package com.project.inftrastructure.middlewares.ui.driver;
 
 
-import com.sample.core.testUtils.TestLogger;
+import com.project.inftrastructure.execution.logger.TestLogger;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;

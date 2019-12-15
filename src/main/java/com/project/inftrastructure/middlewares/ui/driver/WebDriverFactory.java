@@ -8,9 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -64,33 +62,20 @@ public class WebDriverFactory {
                 WebDriver firefoxDriver = new FirefoxDriver(getFirefoxCapabilities());
                 firefoxDriver.manage().timeouts().implicitlyWait(implicitTimeOut, TimeUnit.SECONDS);
                 return firefoxDriver;
-            case HTML_UNIT_DRIVER:
-                HtmlUnitDriver htmlUnitDriver = new HtmlUnitDriver();
-                htmlUnitDriver.setJavascriptEnabled(true);
-                return htmlUnitDriver;
-
-            case GHOST_DRIVER:
-                String ghostDriverPath = ApplicationPropertiesInitializer.getProperty(
-                        ApplicationPropNames.GHOST_DRIVER_PATH.getValue());
-                DesiredCapabilities DesireCaps = new DesiredCapabilities();
-                DesireCaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, ghostDriverPath);
-                System.setProperty("phantomjs.binary.path", propertiesLoader.getGhostDriverPath());
-                return (WebDriver) new PhantomJSDriver();
-
             case REMOTE_WEB_DRIVER:
                 String hubURL = ApplicationPropertiesInitializer.getProperty(
                         ApplicationPropNames.HUB_URL.getValue());
-                WebDriver driver = null;
-                URL url = null;
+                WebDriver remoteDriver;
+                URL url;
                 try {
                     url = new URL(hubURL);
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
-                driver = new RemoteWebDriver(url, getChromeCapabilities());
-                driver.manage().timeouts().implicitlyWait(implicitTimeOut, TimeUnit.SECONDS);
-                driver.manage().window().maximize();
-                return driver;
+                remoteDriver = new RemoteWebDriver(url, getChromeCapabilities());
+                remoteDriver.manage().timeouts().implicitlyWait(implicitTimeOut, TimeUnit.SECONDS);
+                remoteDriver.manage().window().maximize();
+                return remoteDriver;
 
         }
         throw new RuntimeException("Unsupported driver type " + driver);
