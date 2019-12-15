@@ -57,7 +57,7 @@ public class WebDriverFactory {
 
             case FIREFOX:
                 String firefoxDriverPath = ApplicationPropertiesInitializer.getProperty(
-                        ApplicationPropNames.INTERNET_EXPLORER32_PATH.getValue());
+                        ApplicationPropNames.FIREFOX_DRIVER_PATH.getValue());
                 System.setProperty("webdriver.gecko.driver", firefoxDriverPath);
                 WebDriver firefoxDriver = new FirefoxDriver(getFirefoxCapabilities());
                 firefoxDriver.manage().timeouts().implicitlyWait(implicitTimeOut, TimeUnit.SECONDS);
