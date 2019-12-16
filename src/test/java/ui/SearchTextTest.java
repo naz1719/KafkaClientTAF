@@ -9,7 +9,7 @@ public class SearchTextTest extends BaseUI {
 
     @Test(description = "Test google search")
     public void googleSearchTest() {
-        SearchSteps searchSteps = SearchSteps.getInstance();
+        SearchSteps searchSteps = new SearchSteps();
         searchSteps.openPortal("https://www.google.com.ua/");
         searchSteps
                 .typeSearchText("SearchText")

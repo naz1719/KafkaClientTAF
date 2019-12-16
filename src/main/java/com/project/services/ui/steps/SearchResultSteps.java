@@ -1,6 +1,5 @@
 package com.project.services.ui.steps;
 
-import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 import com.project.inftrastructure.middlewares.ui.controls.elements.Button;
 import com.project.services.ui.BaseSteps;
 import com.project.services.ui.po.SearchResultPage;
@@ -11,7 +10,7 @@ public class SearchResultSteps extends BaseSteps {
     private SearchResultPage searchResultPage;
 
     public SearchResultSteps() {
-        searchResultPage = new SearchResultPage(UiConfiguration.getInstance().getDriver());
+        searchResultPage = new SearchResultPage(webDriver);
     }
 
     public List<Button> getWebResults() {
