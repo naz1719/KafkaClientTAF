@@ -53,7 +53,7 @@ public class TestLogger {
         return logger;
     }
 
-    @Step("{0}")
+    @Step("{message}")
     public void info(Object message) {
         LOG.info(message);
     }
