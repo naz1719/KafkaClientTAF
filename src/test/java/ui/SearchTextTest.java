@@ -1,24 +1,21 @@
 package ui;
 
-import com.project.services.ui.steps.SearchSteps;
 import com.project.services.ui.steps.SearchResultSteps;
-import io.qameta.allure.Description;
+import com.project.services.ui.steps.SearchSteps;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-@Test
 public class SearchTextTest extends BaseUI {
 
-    @Test
-    @Description("Test google search")
+    @Test(description = "Test google search")
     public void googleSearchTest() {
-        SearchSteps searchSteps = new SearchSteps();
+        SearchSteps searchSteps = SearchSteps.getInstance();
         searchSteps.openPortal("https://www.google.com.ua/");
         searchSteps
                 .typeSearchText("SearchText")
                 .submitSearchText();
 
         SearchResultSteps searchResultSteps = new SearchResultSteps();
-        Assert.assertEquals(searchResultSteps.getWebResults().size(), 0);
+        Assert.assertNotEquals(searchResultSteps.getWebResults().size(), 0);
     }
 }

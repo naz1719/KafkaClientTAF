@@ -49,10 +49,10 @@ allure {
     downloadLink = "http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allureVersion}/allure-commandline-${allureVersion}.zip"
 }
 
-task runAllSuite(type:Test) {
+test {
+    // enable TestNG support (default is JUnit)
     useTestNG() {
         dependsOn cleanTest
-        suites './src/test/suites/AllSuite.xml'
     }
     finalizedBy 'allureReport'
 }
