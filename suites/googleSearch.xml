@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite verbose="1" name="Google Search Test Suite">
+    <test name="Google Search test">
+        <parameter name="browser" value="CHROME"/>
+        <packages>
+            <package name="ui"/>
+        </packages>
+    </test>
+</suite>
