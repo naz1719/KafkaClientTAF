@@ -26,7 +26,7 @@ public abstract class BaseUI {
 
     @Parameters("browser")
     @BeforeClass
-    public void setUp(@Optional("CHROME"/*CHROME,EDGE,FIREFOX*/) String browser){
+    public void setUp(@Optional("FIREFOX" /*CHROME,EDGE,FIREFOX*/) String browser){
         uiConfiguration.setBrowserName(browser);
         driver = uiConfiguration.getDriver();
     }
