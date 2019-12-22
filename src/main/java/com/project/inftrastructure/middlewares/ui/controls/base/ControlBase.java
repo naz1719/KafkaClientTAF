@@ -35,11 +35,20 @@ public class ControlBase implements Control {
 
     }
 
+    /**
+     * This method does void click
+     * @deprecated As of it void it doesn't allow use chain approach, use {@link #chainClick()} instead.
+     */
     @Override
     public void click() {
         message = String.format(MessageTemplatesUI.CLICK_ON, name, page);
         LOG.info(message);
         webElement.click();
+    }
+
+    public ControlBase chainClick(){
+        click();
+        return this;
     }
 
     @Override
@@ -182,6 +191,4 @@ public class ControlBase implements Control {
         return (WebElement)((JavascriptExecutor) driver)
                 .executeScript("return arguments[0].shadowRoot",element);
     }
-
-
 }
