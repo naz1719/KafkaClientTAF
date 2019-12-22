@@ -17,7 +17,6 @@ public interface Control extends WebElement, WrapsElement, Locatable {
     WebElement expandRootElement(WebElement element, WebDriver driver);
 
     List<WebElement> findElementsWithTimeout(By by);
-//    List<? extends Control> findElementsWithTimeout(List<? extends Control> webElementList , int sec);
 
     Control isElementIsClickable(int sec);
     Control isElementIsVisible(int sec);
