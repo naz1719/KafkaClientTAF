@@ -12,19 +12,21 @@ public class Value {
 	}
 
 	public Long getId() {
-		return this.id;
+		return id;
+	}
+
+	public Value setId(Long id) {
+		this.id = id;
+		return this;
 	}
 
 	public String getQuote() {
-		return this.quote;
+		return quote;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setQuote(String quote) {
+	public Value setQuote(String quote) {
 		this.quote = quote;
+		return this;
 	}
 
 	@Override

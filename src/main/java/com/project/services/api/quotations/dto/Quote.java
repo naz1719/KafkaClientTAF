@@ -15,16 +15,18 @@ public class Quote {
 		return type;
 	}
 
-	public void setType(String type) {
+	public Quote setType(String type) {
 		this.type = type;
+		return this;
 	}
 
 	public Value getValue() {
 		return value;
 	}
 
-	public void setValue(Value value) {
+	public Quote setValue(Value value) {
 		this.value = value;
+		return this;
 	}
 
 	@Override

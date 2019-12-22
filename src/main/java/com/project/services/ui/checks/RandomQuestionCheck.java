@@ -1,0 +1,32 @@
+package com.project.services.ui.checks;
+
+import com.project.services.api.quotations.dto.Quote;
+import com.project.services.api.quotations.dto.Value;
+import io.qameta.allure.Step;
+import org.assertj.core.api.SoftAssertionError;
+import org.assertj.core.api.SoftAssertions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.asserts.SoftAssert;
+
+public class RandomQuestionCheck {
+    private static final RandomQuestionCheck instance = new RandomQuestionCheck();
+    final Logger LOG = LoggerFactory.getLogger(RandomQuestionCheck.class);
+
+    private RandomQuestionCheck() {
+    }
+
+    public static RandomQuestionCheck getInstance() {
+        return instance;
+    }
+
+    @Step(value = "Check random question")
+    public void validateRandomQuestion(Quote actual, Quote expected) {
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(actual.getType()).as("check type").isEqualTo(expected.getType());
+        Value value = actual.getValue();
+        softAssertions.assertThat(value.getId()).as("check Quote.Value id").isBetween(100L,1000L);
+        softAssertions.assertThat(value.getQuote()).as("check Quote.Value id").isNotBlank();
+        softAssertions.assertAll();
+    }
+}
