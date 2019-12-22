@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import static org.testng.AssertJUnit.assertTrue;
 
 @Page(title = "Google Search Page")
-public class SearchPage extends BasePage {
+public class SearchPage extends BasePage<SearchPage> {
 
     @FindBy(name = "q")
     private Input searchInput;

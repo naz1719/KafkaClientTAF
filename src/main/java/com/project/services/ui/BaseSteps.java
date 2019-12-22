@@ -6,10 +6,11 @@ import com.project.inftrastructure.execution.wait.UIWaitManager;
 import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 import org.openqa.selenium.WebDriver;
 
-public abstract class BaseSteps {
+public abstract class BaseSteps <P extends BasePage<P>> {
     protected UIWaitManager waitManager = UIWaitManager.getInstance();
     protected TestLogger LOG = TestLogger.getLogger();
     protected WebDriver webDriver = UiConfiguration.getInstance().getDriver();
+    protected P page;
 
     public void error(String message) {
         LOG.error(message);

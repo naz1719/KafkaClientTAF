@@ -6,14 +6,18 @@ import com.project.services.ui.po.SearchResultPage;
 
 import java.util.List;
 
-public class SearchResultSteps extends BaseSteps {
-    private SearchResultPage searchResultPage;
+public class SearchResultSteps extends BaseSteps<SearchResultPage> {
 
     public SearchResultSteps() {
-        searchResultPage = new SearchResultPage(webDriver);
+        page = new SearchResultPage(webDriver);
     }
 
     public List<Button> getWebResults() {
-        return searchResultPage.getWebResults();
+        return page.getWebResults();
+    }
+
+    public SearchResultSteps get(){
+        page.get();
+        return this;
     }
 }

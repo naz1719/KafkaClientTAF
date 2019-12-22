@@ -4,25 +4,24 @@ package com.project.services.ui.steps;
 import com.project.services.ui.BaseSteps;
 import com.project.services.ui.po.SearchPage;
 
-public class SearchSteps extends BaseSteps {
-    private SearchPage searchPageObject;
+public class SearchSteps extends BaseSteps<SearchPage> {
 
     public SearchSteps() {
-        searchPageObject = new SearchPage(webDriver);
+        page = new SearchPage(webDriver);
     }
 
     public SearchSteps typeSearchText(String searchText) {
-        searchPageObject.typeSearchText(searchText);
+        page.typeSearchText(searchText);
         return this;
     }
 
     public SearchSteps submitSearchText() {
-        searchPageObject.submit();
+        page.submit();
         return this;
     }
 
     public SearchSteps get(){
-        searchPageObject.get();
+        page.get();
         return this;
     }
 }

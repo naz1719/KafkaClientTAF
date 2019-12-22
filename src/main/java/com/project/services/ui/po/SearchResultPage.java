@@ -5,11 +5,12 @@ import com.project.inftrastructure.middlewares.ui.controls.elements.Button;
 import com.project.services.ui.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import java.util.List;
 
 @Page(title = "Google Search Result Page")
-public class SearchResultPage extends BasePage {
+public class SearchResultPage extends BasePage<SearchResultPage> {
 
     @FindBy(xpath = ".//*[@class='rc']")
     private List<Button> webResults;
@@ -29,6 +30,7 @@ public class SearchResultPage extends BasePage {
 
     @Override
     protected void isLoaded() throws Error {
-
+        boolean contains = driver.getTitle().contains("Google");
+        Assert.assertTrue(contains);
     }
 }

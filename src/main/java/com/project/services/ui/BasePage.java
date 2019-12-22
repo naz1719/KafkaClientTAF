@@ -2,10 +2,10 @@ package com.project.services.ui;
 
 
 import com.project.inftrastructure.execution.logger.TestLogger;
-import com.project.inftrastructure.execution.wait.DelaySteps;
 import com.project.inftrastructure.execution.wait.UIWaitManager;
 import com.project.inftrastructure.middlewares.ui.annotations.Page;
 import com.project.inftrastructure.middlewares.ui.utils.pagefactory.ElementFactory;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.LoadableComponent;
 
@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.LoadableComponent;
  */
 
 @Page(title = "Base Page Object")
-public abstract class BasePage extends LoadableComponent {
+public abstract class BasePage <P extends BasePage<P>> extends LoadableComponent {
     protected UIWaitManager waitManager = UIWaitManager.getInstance();
     protected TestLogger LOG = TestLogger.getLogger();
     protected WebDriver driver;
@@ -39,10 +39,4 @@ public abstract class BasePage extends LoadableComponent {
     public String getPageTitle() {
         return driver.getTitle();
     }
-
-    public void refresh() {
-        driver.get(driver.getCurrentUrl());
-        DelaySteps.getInstance().delayStep(10);;
-    }
-
 }
