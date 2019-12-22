@@ -45,8 +45,8 @@ public class GetRandomQuotationService extends BaseHttpCheck {
                     .contentType(content_type_json);
             response = request.when().get(uri);
 
-            AllureLogger.attachJsone("Request :", logHolder.getRequestStream());
-            AllureLogger.attachJsone("Response :", logHolder.getResponseStream());
+            AllureLogger.attachJson("Request", logHolder.getRequestStream());
+            AllureLogger.attachJson("Response", logHolder.getResponseStream());
 
             validateResponseBasic(response);
             validateResponseStatusCode(response, 200);

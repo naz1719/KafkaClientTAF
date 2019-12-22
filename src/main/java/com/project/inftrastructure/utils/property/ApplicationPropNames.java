@@ -4,7 +4,6 @@ public enum ApplicationPropNames {
     BROWSER("BROWSER"),
     IMPLICITLY_WAIT_TIMEOUT("IMPLICITLY_WAIT_TIMEOUT"),
     HUB_URL("HUB_URL"),
-    LOG_LEVEL_TYPE("LOG_LEVEL_TYPE"),
 
 //  Drivers paths
     CHROME_DRIVER_PATH("CHROME_DRIVER_PATH"),

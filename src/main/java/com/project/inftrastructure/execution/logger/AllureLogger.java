@@ -15,7 +15,7 @@ import java.nio.file.Files;
 public class AllureLogger {
     private final static Logger LOG = Logger.getLogger(AllureLogger.class);
 
-    private static boolean logToConsole;
+    private static boolean logToConsole = true;
 
     // 1. ----------- Common  --------
     private static byte[] attach(ByteArrayOutputStream log) {
@@ -33,8 +33,8 @@ public class AllureLogger {
 
     // 3. ----------- Attache Json --------
     @Attachment(value = "{name}", type = "application/json")
-    public static byte[] attachJsone(String name, ByteArrayOutputStream stream) {
-        logToConsole(stream);
+    public static byte[] attachJson(String name, ByteArrayOutputStream stream) {
+        logToConsole(name, stream);
         return attach(stream);
     }
 
@@ -51,11 +51,13 @@ public class AllureLogger {
 
     @Step(value = "{log}")
     public static void logInfo(String log) {
+
     }
 
-    private static void logToConsole(ByteArrayOutputStream stream) {
+    private static void logToConsole(String name, ByteArrayOutputStream stream) {
         if (logToConsole) {
-            LOG.info("\n-------------\n" + stream.toString() + "\n");
+            LOG.info("\n-------------\t" + name + "\t-------------\n"
+                    + stream.toString() + "\n");
         }
     }
 }
