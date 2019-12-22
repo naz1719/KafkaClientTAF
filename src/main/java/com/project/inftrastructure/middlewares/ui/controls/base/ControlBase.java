@@ -21,14 +21,14 @@ import java.util.List;
  * Wrapper around {@link WebElement} with needed features.
  * Every custom control, like {@link CheckboxControl} extends from this WebControl.
  */
-public class WebControl implements Control {
+public class ControlBase implements Control {
     protected static final TestLogger LOG = TestLogger.getLogger();
     protected final WebElement webElement;
     protected final String name;
     protected final String page;
     private String message;
 
-    public WebControl(final WebElement webElement, final String name, final String page) {
+    public ControlBase(final WebElement webElement, final String name, final String page) {
         this.webElement = webElement;
         this.name = name;
         this.page = page;
@@ -150,21 +150,21 @@ public class WebControl implements Control {
     }
 
 
-    public WebControl moveToElement(WebDriver driver){
+    public ControlBase moveToElement(WebDriver driver){
         message = String.format(MessageTemplatesUI.MOVE_TO, name, page);
         LOG.info(message);
         new Actions(driver).moveToElement(webElement).perform();
         return this;
     }
 
-    public WebControl focusJs(WebDriver driver) {
+    public ControlBase focusJs(WebDriver driver) {
         message = String.format(MessageTemplatesUI.FOCUS_ON, name, page);
         LOG.info(message);
         ((JavascriptExecutor) driver).executeScript("arguments[0].focus();", webElement);
         return this;
     }
 
-    public WebControl highlightElement(WebDriver driver) {
+    public ControlBase highlightElement(WebDriver driver) {
         String bg = webElement.getCssValue("backgroundColor");
         for (int i = 0; i < 3; i++) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor='red'", webElement);

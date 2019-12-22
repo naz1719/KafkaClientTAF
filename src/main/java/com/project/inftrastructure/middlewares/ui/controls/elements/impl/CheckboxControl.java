@@ -1,18 +1,18 @@
 package com.project.inftrastructure.middlewares.ui.controls.elements.impl;
 
-import com.project.inftrastructure.middlewares.ui.controls.base.WebControl;
+import com.project.inftrastructure.middlewares.ui.controls.base.ControlBase;
 import com.project.inftrastructure.middlewares.ui.controls.elements.Checkbox;
 import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class CheckboxControl extends WebControl implements Checkbox {
+public class CheckboxControl extends ControlBase implements Checkbox {
     public CheckboxControl(WebElement webElement, String name, String page) {
         super(webElement , name , page);
     }
 
-    public WebControl changeCheckboxState(boolean requiredCheckboxState, WebDriver driver) {
+    public ControlBase changeCheckboxState(boolean requiredCheckboxState, WebDriver driver) {
         if(getWrappedElement().getAttribute("aria-checked") == null){
             throw new InvalidElementStateException("Element is not checkbox");
         }

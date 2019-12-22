@@ -4,7 +4,7 @@ import com.project.inftrastructure.middlewares.ui.annotations.Description;
 import com.project.inftrastructure.middlewares.ui.annotations.ImplementedBy;
 import com.project.inftrastructure.middlewares.ui.annotations.Page;
 import com.project.inftrastructure.middlewares.ui.controls.base.Control;
-import com.project.inftrastructure.middlewares.ui.controls.base.WebControl;
+import com.project.inftrastructure.middlewares.ui.controls.base.ControlBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WrapsElement;
 import org.openqa.selenium.interactions.Locatable;
@@ -38,7 +38,7 @@ public class CustomFieldDecorator implements FieldDecorator {
         if (!(WebElement.class.isAssignableFrom(field.getType()) || isDecoratableList(field))) {
             return null;
         }
-        if (field.getDeclaringClass() == WebControl.class) {
+        if (field.getDeclaringClass() == ControlBase.class) {
             return null;
         }
         ElementLocator locator;

@@ -19,8 +19,8 @@ public class SearchPage extends BasePage<SearchPage> {
     }
 
     public void typeSearchText(String searchText){
-        searchInput.click();
-        searchInput.clearAndType(searchText);
+        searchInput
+                .clearAndType(searchText);
     }
 
     public void submit(){
