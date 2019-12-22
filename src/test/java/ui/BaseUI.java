@@ -2,7 +2,6 @@ package ui;
 
 import com.project.inftrastructure.execution.logger.TestLogger;
 import com.project.inftrastructure.execution.logger.UITestListener;
-import com.project.inftrastructure.execution.wait.UIWaitManager;
 import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -23,7 +22,6 @@ public abstract class BaseUI {
 
     protected TestLogger LOG;
     protected WebDriver driver;
-    protected UIWaitManager waitManager;
     protected UiConfiguration uiConfiguration = UiConfiguration.getInstance();
 
     @Parameters("browser")
@@ -43,8 +41,8 @@ public abstract class BaseUI {
     @BeforeMethod
     public void initLogger(Method method) {
         LOG = TestLogger.getLogger(method.getName(), method.getDeclaringClass().getSimpleName());
-        waitManager = UIWaitManager.getInstance();
     }
+
     @AfterMethod
     public void dropLogger() {
         LOG.drop();

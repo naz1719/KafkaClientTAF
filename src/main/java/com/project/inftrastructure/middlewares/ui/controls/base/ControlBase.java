@@ -2,6 +2,7 @@ package com.project.inftrastructure.middlewares.ui.controls.base;
 
 import com.project.inftrastructure.execution.logger.TestLogger;
 import com.project.inftrastructure.execution.logger.templates.MessageTemplatesUI;
+import com.project.inftrastructure.execution.wait.ElementWaitManager;
 import com.project.inftrastructure.middlewares.ui.controls.elements.impl.CheckboxControl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -21,18 +22,16 @@ import java.util.List;
  * Wrapper around {@link WebElement} with needed features.
  * Every custom control, like {@link CheckboxControl} extends from this WebControl.
  */
-public class ControlBase implements Control {
+public class ControlBase extends ElementWaitManager implements Control {
     protected static final TestLogger LOG = TestLogger.getLogger();
-    protected final WebElement webElement;
     protected final String name;
     protected final String page;
     private String message;
 
     public ControlBase(final WebElement webElement, final String name, final String page) {
-        this.webElement = webElement;
+        super(webElement);
         this.name = name;
         this.page = page;
-
     }
 
     /**

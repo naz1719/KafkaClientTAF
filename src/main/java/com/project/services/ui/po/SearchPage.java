@@ -38,6 +38,5 @@ public class SearchPage extends BasePage<SearchPage> {
     protected void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
         assertTrue("Not on the issue entry page: " + url, url.endsWith("ua/"));
-        waitManager.isElementIsVisible(searchInput, 5);
     }
 }
