@@ -10,10 +10,11 @@ public class InputControl extends WebControl implements Input {
         super(webElement, name, page);
     }
 
-    public void clearAndType(String text) {
+    public WebControl clearAndType(String text) {
         getWrappedElement().clear();
         getWrappedElement().sendKeys(text);
         String message = String.format(MessageTemplatesUI.TYPE_TEXT, text, name, page);
         LOG.info(message);
+        return this;
     }
 }

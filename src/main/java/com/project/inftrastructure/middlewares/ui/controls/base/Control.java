@@ -8,9 +8,8 @@ import org.openqa.selenium.interactions.Locatable;
 
 @ImplementedBy(WebControl.class)
 public interface Control extends WebElement, WrapsElement, Locatable {
-    void moveToElement(WebDriver driver);
-    void highlightElement(WebDriver driver);
-    void focusJs(WebDriver driver);
+    WebControl moveToElement(WebDriver driver);
+    WebControl highlightElement(WebDriver driver);
+    WebControl focusJs(WebDriver driver);
     WebElement expandRootElement(WebElement element, WebDriver driver);
-
 }

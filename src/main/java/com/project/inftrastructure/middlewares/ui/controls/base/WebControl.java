@@ -150,24 +150,27 @@ public class WebControl implements Control {
     }
 
 
-    public void moveToElement(WebDriver driver){
+    public WebControl moveToElement(WebDriver driver){
         message = String.format(MessageTemplatesUI.MOVE_TO, name, page);
         LOG.info(message);
         new Actions(driver).moveToElement(webElement).perform();
+        return this;
     }
 
-    public void focusJs(WebDriver driver) {
+    public WebControl focusJs(WebDriver driver) {
         message = String.format(MessageTemplatesUI.FOCUS_ON, name, page);
         LOG.info(message);
         ((JavascriptExecutor) driver).executeScript("arguments[0].focus();", webElement);
+        return this;
     }
 
-    public void highlightElement(WebDriver driver) {
+    public WebControl highlightElement(WebDriver driver) {
         String bg = webElement.getCssValue("backgroundColor");
         for (int i = 0; i < 3; i++) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor='red'", webElement);
             ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor='" + bg + "'", webElement);
         }
+        return this;
     }
 
     /**

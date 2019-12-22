@@ -12,12 +12,13 @@ public class CheckboxControl extends WebControl implements Checkbox {
         super(webElement , name , page);
     }
 
-    public void changeCheckboxState(boolean requiredCheckboxState, WebDriver driver) {
+    public WebControl changeCheckboxState(boolean requiredCheckboxState, WebDriver driver) {
         if(getWrappedElement().getAttribute("aria-checked") == null){
             throw new InvalidElementStateException("Element is not checkbox");
         }
         else if (getWrappedElement().isSelected() != requiredCheckboxState) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", getWrappedElement());
         }
+        return this;
     }
 }
