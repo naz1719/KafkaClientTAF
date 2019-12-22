@@ -5,7 +5,6 @@ import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 import com.project.inftrastructure.middlewares.ui.controls.base.Control;
 import com.project.inftrastructure.middlewares.ui.utils.CustomExpectedConditions;
 import org.assertj.core.api.Assertions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +19,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 
