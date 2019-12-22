@@ -10,15 +10,15 @@ public class BaseHttpCheck {
     protected static String content_type_multipart = "multipart/form-data";
 
     protected void validateResponseBasic(Response response) {
-        if (response == null) {
-            Assertions.fail("FAIL: response is null");
-        }
+        Assertions
+                .assertThat(response).as("Response")
+                .isNotNull();
     }
 
     @Step(value = "Validate that http status code = {expectedStatusCode}")
     protected void validateResponseStatusCode(Response response, int expectedStatusCode) {
-        if (response.statusCode() != expectedStatusCode) {
-            Assertions.fail("FAIL: response StatusCode: " + response.statusCode() + " but expected: " + expectedStatusCode);
-        }
+        Assertions
+                .assertThat(response.statusCode()).as("Status code")
+                .isEqualTo(expectedStatusCode);
     }
 }
