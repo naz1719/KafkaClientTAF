@@ -45,7 +45,7 @@ public class ControlBase extends ElementWaitManager implements Control {
         webElement.click();
     }
 
-    public ControlBase chainClick(){
+    public Control chainClick(){
         click();
         return this;
     }
@@ -158,21 +158,21 @@ public class ControlBase extends ElementWaitManager implements Control {
     }
 
 
-    public ControlBase moveToElement(WebDriver driver){
+    public Control moveToElement(WebDriver driver){
         message = String.format(MessageTemplatesUI.MOVE_TO, name, page);
         LOG.info(message);
         new Actions(driver).moveToElement(webElement).perform();
         return this;
     }
 
-    public ControlBase focusJs(WebDriver driver) {
+    public Control focusJs(WebDriver driver) {
         message = String.format(MessageTemplatesUI.FOCUS_ON, name, page);
         LOG.info(message);
         ((JavascriptExecutor) driver).executeScript("arguments[0].focus();", webElement);
         return this;
     }
 
-    public ControlBase highlightElement(WebDriver driver) {
+    public Control highlightElement(WebDriver driver) {
         String bg = webElement.getCssValue("backgroundColor");
         for (int i = 0; i < 3; i++) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].style.backgroundColor='red'", webElement);
@@ -190,4 +190,6 @@ public class ControlBase extends ElementWaitManager implements Control {
         return (WebElement)((JavascriptExecutor) driver)
                 .executeScript("return arguments[0].shadowRoot",element);
     }
+
+
 }

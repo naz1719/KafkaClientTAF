@@ -2,9 +2,7 @@ package com.project.inftrastructure.execution.wait;
 
 import com.project.inftrastructure.execution.logger.TestLogger;
 import com.project.inftrastructure.middlewares.ui.UiConfiguration;
-import com.project.inftrastructure.middlewares.ui.controls.base.IControl;
-import com.project.inftrastructure.middlewares.ui.controls.base.ControlBase;
-import com.project.inftrastructure.middlewares.ui.controls.elements.Element;
+import com.project.inftrastructure.middlewares.ui.controls.base.Control;
 import com.project.inftrastructure.middlewares.ui.utils.CustomExpectedConditions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -89,7 +87,7 @@ public class ElementWaitManager {
         return findElementsWithTimeout(webElement, by, sec);
     }
 
-    public static List<Element> findElementsWithTimeout(List<Element> webElementList , int sec) {
+    public static List<? extends Control> findElementsWithTimeout(List<? extends Control> webElementList , int sec) {
         OptionalInt first = IntStream.range(0, sec)
                 .filter(i -> {
                     boolean isEmpty = webElementList.size() == 0;
@@ -104,29 +102,29 @@ public class ElementWaitManager {
         return webElementList;
     }
 
-    void waitForListVisibility(List<? extends IControl> list, int seconds) {
+    void waitForListVisibility(List<? extends Control> list, int seconds) {
         getWait(seconds).until(CustomExpectedConditions.visibilityOfAllElements(list));
     }
 
-    public ControlBase isElementIsClickable(int sec) {
+    public Control isElementIsClickable(int sec) {
         getWait(sec).until(ExpectedConditions.elementToBeClickable(webElement));
-        return (ControlBase) this;
+        return (Control) this;
     }
 
-    public ControlBase isElementIsVisible(int sec) {
+    public Control isElementIsVisible(int sec) {
         getWait(sec).until(ExpectedConditions.visibilityOf(webElement));
-        return (ControlBase) this;
+        return (Control) this;
     }
 
-    public ControlBase waitForStaleness(int sec) {
+    public Control waitForStaleness(int sec) {
         getWait(sec).until(ExpectedConditions.stalenessOf(webElement));
-        return (ControlBase) this;
+        return (Control) this;
     }
 
-    public ControlBase clickJS() {
+    public Control clickJS() {
         WebDriver webDriver = UiConfiguration.getInstance().getDriver();
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webElement);
-        return (ControlBase) this;
+        return (Control) this;
     }
 
     /**
