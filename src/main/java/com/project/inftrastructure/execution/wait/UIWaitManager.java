@@ -4,7 +4,6 @@ import com.beust.jcommander.internal.Nullable;
 import com.project.inftrastructure.execution.logger.TestLogger;
 import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 import com.project.inftrastructure.middlewares.ui.controls.base.Control;
-import com.project.inftrastructure.middlewares.ui.controls.elements.Table;
 import com.project.inftrastructure.middlewares.ui.utils.CustomExpectedConditions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -144,34 +143,12 @@ public class UIWaitManager {
         getWait(sec).until(ExpectedConditions.elementToBeClickable(webControl));
     }
 
-    protected void isElementIsVisible(WebElement webControl, int sec) {
+    public void isElementIsVisible(WebElement webControl, int sec) {
         getWait(sec).until(ExpectedConditions.visibilityOf(webControl));
     }
 
     protected void waitForStaleness(WebElement webControl, int sec) {
         getWait(sec).until(ExpectedConditions.stalenessOf(webControl));
-    }
-
-
-    public void sortTable(Table table, String columnName, String condition, WebElement el) {
-        List<WebElement> columnsList = table.getHeaderElements();
-        wait = getWait(300);
-        columnsList.stream().filter(it -> it.getText().trim().equals(columnName))
-                .forEach(it -> wait.until(CustomExpectedConditions.conditionIsSelected(it, condition, table, columnName, el)));
-    }
-
-    public void refresh() {
-        WebDriver driver = UiConfiguration.getInstance().getDriver();
-        driver.get(driver.getCurrentUrl());
-        sleep(10000);
-    }
-
-    public void sleep(long sec) {
-        try {
-            Thread.sleep(sec);
-        } catch (InterruptedException e) {
-            LOG.error("Can't stop thread");
-        }
     }
 
     public void clickJS(WebElement element) {

@@ -26,7 +26,7 @@ public class WebControl implements Control {
     protected final WebElement webElement;
     protected final String name;
     protected final String page;
-    String message;
+    private String message;
 
     public WebControl(final WebElement webElement, final String name, final String page) {
         this.webElement = webElement;

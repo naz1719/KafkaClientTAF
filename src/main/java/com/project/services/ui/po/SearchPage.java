@@ -6,6 +6,7 @@ import com.project.inftrastructure.middlewares.ui.controls.elements.Input;
 import com.project.services.ui.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import static org.testng.AssertJUnit.assertTrue;
 
 @Page(title = "Google Search Page")
 public class SearchPage extends BasePage {
@@ -19,7 +20,7 @@ public class SearchPage extends BasePage {
 
     public void typeSearchText(String searchText){
         searchInput.click();
-        searchInput.sendText(searchText);
+        searchInput.clearAndType(searchText);
     }
 
     public void submit(){
@@ -28,11 +29,15 @@ public class SearchPage extends BasePage {
 
     @Override
     protected void load() {
-
+        String url = "https://www.google.com.ua/";
+        step("Navigate to " + url);
+        driver.get(url);
     }
 
     @Override
     protected void isLoaded() throws Error {
-        waitManager.isElementIsClickable(searchInput, 5);
+        String url = driver.getCurrentUrl();
+        assertTrue("Not on the issue entry page: " + url, url.endsWith("ua/"));
+        waitManager.isElementIsVisible(searchInput, 5);
     }
 }

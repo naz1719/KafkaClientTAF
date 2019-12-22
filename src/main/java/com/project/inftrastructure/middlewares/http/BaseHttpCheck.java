@@ -1,7 +1,7 @@
 package com.project.inftrastructure.middlewares.http;
 
-import com.jayway.restassured.response.Response;
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import org.testng.Assert;
 
 public class BaseHttpCheck {

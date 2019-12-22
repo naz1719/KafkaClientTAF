@@ -11,11 +11,6 @@ public abstract class BaseSteps {
     protected TestLogger LOG = TestLogger.getLogger();
     protected WebDriver webDriver = UiConfiguration.getInstance().getDriver();
 
-    public void openPortal(String url) {
-        step("Go to " + url);
-        UiConfiguration.getInstance().getDriver().get(url);
-    }
-
     public void error(String message) {
         LOG.error(message);
     }

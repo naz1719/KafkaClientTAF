@@ -20,4 +20,9 @@ public class SearchSteps extends BaseSteps {
         searchPageObject.submit();
         return this;
     }
+
+    public SearchSteps get(){
+        searchPageObject.get();
+        return this;
+    }
 }

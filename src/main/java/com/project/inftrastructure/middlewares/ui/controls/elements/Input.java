@@ -6,5 +6,5 @@ import com.project.inftrastructure.middlewares.ui.controls.elements.impl.InputCo
 
 @ImplementedBy(InputControl.class)
 public interface Input extends Control {
-    void sendText(String text);
+    void clearAndType(String text);
 }

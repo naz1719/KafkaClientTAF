@@ -10,12 +10,13 @@ public class SearchTextTest extends BaseUI {
     @Test(description = "Test google search")
     public void googleSearchTest() {
         SearchSteps searchSteps = new SearchSteps();
-        searchSteps.openPortal("https://www.google.com.ua/");
         searchSteps
+                .get()
                 .typeSearchText("SearchText")
                 .submitSearchText();
 
         SearchResultSteps searchResultSteps = new SearchResultSteps();
-        Assert.assertNotEquals(searchResultSteps.getWebResults().size(), 0);
+        int webResultList = searchResultSteps.getWebResults().size();
+        Assert.assertNotEquals(webResultList, 0);
     }
 }
