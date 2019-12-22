@@ -2,7 +2,7 @@ package ui;
 
 import com.project.services.ui.steps.SearchResultSteps;
 import com.project.services.ui.steps.SearchSteps;
-import org.testng.Assert;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class SearchTextTest extends BaseUI {
@@ -16,6 +16,6 @@ public class SearchTextTest extends BaseUI {
 
         SearchResultSteps searchResultSteps = new SearchResultSteps().get();
         int webResultList = searchResultSteps.getWebResults().size();
-        Assert.assertNotEquals(webResultList, 0);
+        Assertions.assertThat(webResultList).isGreaterThan(100);
     }
 }

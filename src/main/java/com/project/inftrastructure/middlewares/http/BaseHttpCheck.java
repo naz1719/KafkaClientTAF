@@ -2,7 +2,7 @@ package com.project.inftrastructure.middlewares.http;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import org.testng.Assert;
+import org.assertj.core.api.Assertions;
 
 public class BaseHttpCheck {
 
@@ -11,14 +11,14 @@ public class BaseHttpCheck {
 
     protected void validateResponseBasic(Response response) {
         if (response == null) {
-            Assert.fail("FAIL: response is null");
+            Assertions.fail("FAIL: response is null");
         }
     }
 
     @Step(value = "Validate that http status code = {expectedStatusCode}")
     protected void validateResponseStatusCode(Response response, int expectedStatusCode) {
         if (response.statusCode() != expectedStatusCode) {
-            Assert.fail("FAIL: response StatusCode: " + response.statusCode() + " but expected: " + expectedStatusCode);
+            Assertions.fail("FAIL: response StatusCode: " + response.statusCode() + " but expected: " + expectedStatusCode);
         }
     }
 }
