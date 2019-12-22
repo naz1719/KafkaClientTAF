@@ -3,10 +3,9 @@ package com.project.inftrastructure.execution.logger;
 import com.project.inftrastructure.middlewares.ui.UiConfiguration;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,11 +13,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class AllureLogger {
-    final static Logger logger = LoggerFactory.getLogger(AllureLogger.class);
+    private final static Logger LOG = Logger.getLogger(AllureLogger.class);
 
-    public static boolean logToslf4j;
-    public static boolean logSoapCallToAllure;
-
+    private static boolean logToConsole;
 
     // 1. ----------- Common  --------
     private static byte[] attach(ByteArrayOutputStream log) {
@@ -57,8 +54,8 @@ public class AllureLogger {
     }
 
     private static void logToConsole(ByteArrayOutputStream stream) {
-        if (logToslf4j) {
-            logger.info("\n-------------\n" + stream.toString() + "\n");
+        if (logToConsole) {
+            LOG.info("\n-------------\n" + stream.toString() + "\n");
         }
     }
 }

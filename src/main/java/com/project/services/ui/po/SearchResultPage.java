@@ -17,6 +17,7 @@ public class SearchResultPage extends BasePage<SearchResultPage> {
     @FindBy(xpath = ".//*[@class='rc']")
     private List<Button> webResults;
 
+    @SuppressWarnings("unchecked")
     public List<Button> getWebResults() {
         return (List<Button>) findElementsWithTimeout(webResults, 30);
     }

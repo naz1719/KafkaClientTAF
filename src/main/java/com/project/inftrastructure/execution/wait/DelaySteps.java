@@ -1,13 +1,12 @@
 package com.project.inftrastructure.execution.wait;
 
 import io.qameta.allure.Step;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 public class DelaySteps {
 
     private static final DelaySteps instance = new DelaySteps();
-    final Logger LOG = LoggerFactory.getLogger(DelaySteps.class);
+    private final Logger LOG = Logger.getLogger(DelaySteps.class);
 
     private DelaySteps() {
     }

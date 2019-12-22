@@ -2,10 +2,9 @@ package com.project.inftrastructure.middlewares.ui.utils.pagefactory;
 
 import com.project.inftrastructure.middlewares.ui.controls.base.Control;
 import com.project.inftrastructure.middlewares.ui.utils.ImplementedByProcessor;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
@@ -19,16 +18,16 @@ import java.util.List;
 public class ElementListHandler implements InvocationHandler {
     private final ElementLocator locator;
     private final Class<?> wrappingType;
-    private static final Logger logger = LoggerFactory.getLogger(ElementListHandler.class);
-    String name;
-    String page;
+    private final Logger LOG = Logger.getLogger(ElementListHandler.class);
+    private String name;
+    private String page;
 
-    public <T> ElementListHandler(Class<T> interfaceType, ElementLocator locator,  String name, String page) {
+    <T> ElementListHandler(Class<T> interfaceType, ElementLocator locator, String name, String page) {
         this.locator = locator;
         this.name = name;
         this.page = page;
         if(!Control.class.isAssignableFrom(interfaceType)) {
-            logger.error("Interface not assignable to Control");
+            LOG.error("Interface not assignable to Control");
             throw new RuntimeException("interface not assignable to Control");
         }
         this.wrappingType = ImplementedByProcessor.getWrapperClass(interfaceType);

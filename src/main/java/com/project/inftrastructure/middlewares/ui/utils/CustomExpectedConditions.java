@@ -1,10 +1,9 @@
 package com.project.inftrastructure.middlewares.ui.utils;
 
 import com.project.inftrastructure.middlewares.ui.controls.base.Control;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -20,7 +19,7 @@ public class CustomExpectedConditions {
         throw new IllegalStateException("CustomExpectedConditions class is not expected to be instantiated");
     }
 
-    private static Logger logger = LoggerFactory.getLogger("Expected Condition");
+    private final static Logger LOG = Logger.getLogger("Expected Condition");
 
     /**
      * Wait until list of elements becomes visible
