@@ -73,20 +73,6 @@ public class ElementWaitManager {
         UiConfiguration.getInstance().getDriver().switchTo().frame(webElement);
     }
 
-    /**
-     * Find all {@link WebElement}s within the current context using the given mechanism and default implicit wait
-     *
-     * @param by The location mechanism to use
-     * @return A list of all {@link WebElement}s, or an empty list if nothing matches.
-     */
-    public List<WebElement> findElementsWithTimeout(By by) {
-        return findElementsWithTimeout(webElement, by, 1);
-    }
-
-    public List<WebElement> findElementsWithTimeout(By by, int sec) {
-        return findElementsWithTimeout(webElement, by, sec);
-    }
-
     public static List<? extends Control> findElementsWithTimeout(List<? extends Control> webElementList , int sec) {
         OptionalInt first = IntStream.range(0, sec)
                 .filter(i -> {
@@ -148,26 +134,5 @@ public class ElementWaitManager {
         } catch (WebDriverException ignored) {
             LOG.error("Web driver exception. Can't wait for angular load");
         }
-    }
-
-    /**
-     * Find all {@link WebElement}s within the current context using the given mechanism  and implicit wait
-     *
-     * @param webElement Context to use
-     * @param by         The locating mechanism to use
-     * @param sec        Implicit wait in seconds
-     * @return A list of all {@link WebElement}s, or an empty list if nothing matches.
-     */
-    private List<WebElement> findElementsWithTimeout(WebElement webElement, By by, int sec) {
-        List<WebElement> webElements;
-        WebDriver driver = UiConfiguration.getInstance().getDriver();
-        driver.manage().timeouts().implicitlyWait(sec, TimeUnit.SECONDS);
-        if (webElement != null) {
-            webElements = webElement.findElements(by);
-        } else {
-            webElements = driver.findElements(by);
-        }
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        return webElements;
     }
 }
