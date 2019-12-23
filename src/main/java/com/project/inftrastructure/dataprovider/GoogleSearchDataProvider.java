@@ -8,11 +8,11 @@ import java.util.List;
 
 public class GoogleSearchDataProvider {
 
-    @DataProvider(name = "itemsToSearch")
+    @DataProvider(name = "itemsToSearch", parallel = true)
     public static Object[][] getFileEntry(ITestContext context) {
 //        context.getCurrentXmlTest().getSuite().setDataProviderThreadCount(2);
 
-        List<String> items = Arrays.asList("item1", "item2", "item3");
+        List<String> items = Arrays.asList("item1", "item2");
 
         Object[][] objArray = new Object[items.size()][];
         for (int i = 0; i < items.size(); i++) {

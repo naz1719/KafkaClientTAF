@@ -1,7 +1,7 @@
 package com.project.inftrastructure.execution.wait;
 
 import com.project.inftrastructure.execution.logger.TestLogger;
-import com.project.inftrastructure.middlewares.ui.UiConfiguration;
+import com.project.inftrastructure.middlewares.ui.WebDriverManager;
 import com.project.inftrastructure.middlewares.ui.controls.base.Control;
 import com.project.inftrastructure.middlewares.ui.utils.CustomExpectedConditions;
 import org.assertj.core.api.Assertions;
@@ -35,7 +35,7 @@ public class ElementWaitManager {
      * Selects either the first frame on the page, or the main document when a page contains iframes.
      */
     public static void switchDefaultContent() {
-        UiConfiguration.getInstance().getDriver().switchTo().defaultContent();
+        WebDriverManager.getInstance().getDriver().switchTo().defaultContent();
     }
 
     /**
@@ -60,7 +60,7 @@ public class ElementWaitManager {
      * @return {@link FluentWait} with default configuration
      */
     public FluentWait<WebDriver> getWait(int timeout) {
-        return new FluentWait<>(UiConfiguration.getInstance().getDriver())
+        return new FluentWait<>(WebDriverManager.getInstance().getDriver())
                 .withTimeout(Duration.ofSeconds(timeout))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(NoSuchElementException.class)
@@ -68,7 +68,7 @@ public class ElementWaitManager {
     }
 
     public void switchFrame() {
-        UiConfiguration.getInstance().getDriver().switchTo().frame(webElement);
+        WebDriverManager.getInstance().getDriver().switchTo().frame(webElement);
     }
 
     public static List<? extends Control> findElementsWithTimeout(List<? extends Control> webElementList , int sec) {
@@ -106,7 +106,7 @@ public class ElementWaitManager {
     }
 
     public Control clickJS() {
-        WebDriver webDriver = UiConfiguration.getInstance().getDriver();
+        WebDriver webDriver = WebDriverManager.getInstance().getDriver();
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webElement);
         return (Control) this;
     }
@@ -124,7 +124,7 @@ public class ElementWaitManager {
 
     public void angularLoads() {
         try {
-            WebDriver webDriver = UiConfiguration.getInstance().getDriver();
+            WebDriver webDriver = WebDriverManager.getInstance().getDriver();
             boolean angularReady = Boolean.parseBoolean(((JavascriptExecutor) webDriver).executeScript("return window.getAllAngularTestabilities().findIndex(x=>!x.isStable()) === -1").toString());
             ExpectedCondition<Boolean> angularLoad = driver -> angularReady;
 

@@ -1,6 +1,6 @@
 package com.project.inftrastructure.execution.logger;
 
-import com.project.inftrastructure.middlewares.ui.UiConfiguration;
+import com.project.inftrastructure.middlewares.ui.WebDriverManager;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
@@ -27,7 +27,7 @@ public class AllureLogger {
     // 2. ----------- Capture screenshot --------
     @Attachment(value = "Page screenshot", type = "image/png")
     public static byte[] captureScreenshot() {
-        return ((TakesScreenshot) UiConfiguration.getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) WebDriverManager.getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
 
