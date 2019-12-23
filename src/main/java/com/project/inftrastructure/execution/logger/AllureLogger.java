@@ -56,7 +56,7 @@ public class AllureLogger {
 
     private static void logToConsole(String name, ByteArrayOutputStream stream) {
         if (logToConsole) {
-            LOG.info("\n-------------\t" + name + "\t-------------\n"
+            LOG.info("\n------------- " + name + " -------------\n"
                     + stream.toString() + "\n");
         }
     }

@@ -74,7 +74,7 @@ public class ElementWaitManager {
     public static List<? extends Control> findElementsWithTimeout(List<? extends Control> webElementList , int sec) {
         OptionalInt first = IntStream.range(0, sec)
                 .filter(i -> {
-                    boolean isEmpty = webElementList.size() == 0;
+                    boolean isEmpty = webElementList.size() != 0;
                     DelaySteps.getInstance().delayStep(1);
                     return isEmpty;
                 })
