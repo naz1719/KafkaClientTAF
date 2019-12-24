@@ -7,8 +7,12 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class BaseSteps <P extends BasePage<P>> {
     protected TestLogger LOG = TestLogger.getLogger();
-    protected WebDriver webDriver = WebDriverManager.getInstance().getDriver();
+    protected WebDriver webDriver;
     protected P page;
+
+    protected BaseSteps() {
+        this.webDriver = WebDriverManager.getInstance().getDriver();
+    }
 
     public void error(String message) {
         LOG.error(message);
