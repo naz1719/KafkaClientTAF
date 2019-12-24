@@ -17,6 +17,6 @@ public class SearchTextTest extends BaseUI {
 
         SearchResultSteps searchResultSteps = new SearchResultSteps().get();
         int webResultList = searchResultSteps.getWebResults().size();
-        Assertions.assertThat(webResultList).isGreaterThan(100);
+        Assertions.assertThat(webResultList).isGreaterThan(5);
     }
 }

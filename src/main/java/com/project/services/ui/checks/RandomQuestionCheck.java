@@ -20,7 +20,7 @@ public class RandomQuestionCheck {
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(actual.getType()).as("check type").isEqualTo(expected.getType());
         Value value = actual.getValue();
-        softAssertions.assertThat(value.getId()).as("check Quote.Value id").isBetween(100L,1000L);
+        softAssertions.assertThat(value.getId()).as("check Quote.Value id").isBetween(1L,100L);
         softAssertions.assertThat(value.getQuote()).as("check Quote.Value id").isNotBlank();
         softAssertions.assertAll();
     }
