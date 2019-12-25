@@ -23,7 +23,7 @@ public abstract class BaseUI {
 
     @Parameters("browser")
     @BeforeClass
-    public void setUp(@Optional("CHROME" /*CHROME,EDGE,FIREFOX*/) String browser){
+    public void setUp(@Optional("REMOTE" /*REMOTE,CHROME,EDGE,FIREFOX*/) String browser){
         webDriverManager.setBrowserName(browser);
     }
 

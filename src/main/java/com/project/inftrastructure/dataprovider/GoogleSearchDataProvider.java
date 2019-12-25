@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GoogleSearchDataProvider {
 
-    @DataProvider(name = "itemsToSearch", parallel = true)
+    @DataProvider(name = "itemsToSearch")
     public static Object[][] getFileEntry(ITestContext context) {
 //        context.getCurrentXmlTest().getSuite().setDataProviderThreadCount(2);
 

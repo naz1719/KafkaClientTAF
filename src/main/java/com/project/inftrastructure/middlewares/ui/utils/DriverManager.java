@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.EnumMap;
 import java.util.function.Supplier;
@@ -23,6 +24,13 @@ public class DriverManager {
    private static final Supplier<WebDriver> chromeDriverSupplier = () -> {
       WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
       return new ChromeDriver(setChromeOption());
+   };
+
+   /**
+     * return instance of Remote driver
+     */
+   private static final Supplier<WebDriver> remoteDriverSupplier = () -> {
+      return new RemoteWebDriver(setChromeOption());
    };
 
     /**
@@ -53,17 +61,19 @@ public class DriverManager {
      * add all driver to map
      */
     static{
+        driverMap.put(DriverType.REMOTE, remoteDriverSupplier);
         driverMap.put(DriverType.CHROME, chromeDriverSupplier);
-        driverMap.put(DriverType.EDGE, edgeDriverSupplier);
-        driverMap.put(DriverType.FIREFOX, firefoxDriverSupplier);
         driverMap.put(DriverType.HEADLESS_CHROME, chromeHeadlessDriverSupplier);
+        driverMap.put(DriverType.FIREFOX, firefoxDriverSupplier);
+        driverMap.put(DriverType.EDGE, edgeDriverSupplier);
     }
 
     public enum DriverType{
         HEADLESS_CHROME,
         CHROME,
         EDGE,
-        FIREFOX
+        FIREFOX,
+        REMOTE
     }
 
     /**

@@ -5,7 +5,7 @@ services:
   selenium-hub:
     image: selenium/hub:3.141.59-neon
     container_name: selenium-hub
-    networks: ['backend']
+    networks: ['selenium-grid']
     ports:
       - "4444:4444"
   chrome:
@@ -16,12 +16,12 @@ services:
       - selenium-hub
     ports:
           - "5555:5555"
-#          - "5556:5900"
+          - "5556:5900"
 # pwd to VNC Server : secret
     environment:
-      - NODE_MAX_INSTANCES=2
-      - NODE_MAX_SESSION=2
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
-    networks: ['backend']
-networks: {backend: {}}
+      - NODE_MAX_INSTANCES=1
+      - NODE_MAX_SESSION=1
+    networks: ['selenium-grid']
+networks: {selenium-grid: {}}
