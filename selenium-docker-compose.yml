@@ -5,23 +5,34 @@ services:
   selenium-hub:
     image: selenium/hub:3.141.59-neon
     container_name: selenium-hub
-    networks: ['selenium-grid']
     ports:
       - "4444:4444"
+    networks: ['selenium-grid']
   chrome:
     image: selenium/node-chrome-debug:3.141.59-neon
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
-    ports:
-          - "5555:5555"
-          - "5556:5900"
-# pwd to VNC Server : secret
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
       - NODE_MAX_INSTANCES=1
       - NODE_MAX_SESSION=1
+    ports:
+      - "5555:5555"
+      - "5556:5900"
+    # pwd to VNC Server : secret
+    networks: ['selenium-grid']
+  tests:
+    image: automation_tests:1.0
+    build:
+      context: ""
+      dockerfile: ./Dockerfile.dockerFile
+    depends_on:
+      - selenium-hub
+    volumes:
+      - ./.gradle:/root/.gradle
+    command: ["./wait-for-grid.sh", "./gradlew", "clean", "test"]
     networks: ['selenium-grid']
 networks: {selenium-grid: {}}
