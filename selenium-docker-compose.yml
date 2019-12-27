@@ -1,5 +1,6 @@
 # To execute this docker-compose yml file use `docker-compose -f <file_name> up`
 # Add the `-d` flag at the end for detached execution
+# docker-compose -f selenium-docker-compose.yml up --build --abort-on-container-exit
 version: "3"
 services:
   selenium-hub:
@@ -16,9 +17,6 @@ services:
       - selenium-hub
     environment:
       - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-      - NODE_MAX_INSTANCES=1
-      - NODE_MAX_SESSION=1
     ports:
       - "5555:5555"
       - "5556:5900"
@@ -33,6 +31,7 @@ services:
       - selenium-hub
     volumes:
       - ./.gradle:/root/.gradle
-    command: ["./wait-for-grid.sh", "./gradlew", "clean", "test"]
+#    command: ["./wait-for-grid.sh", "{GRADLE_COMMAND}"]
+    command: ["./wait-for-grid.sh", "./gradlew clean test"]
     networks: ['selenium-grid']
 networks: {selenium-grid: {}}
