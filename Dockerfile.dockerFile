@@ -19,4 +19,4 @@ COPY . .
 
 RUN apt-get update && apt-get install jq -y && apt install dos2unix
 RUN chmod +x wait-for-grid.sh && dos2unix wait-for-grid.sh
-RUN "./gradlew"
+RUN chmod +x ./gradlew && ./gradlew
