@@ -3,6 +3,11 @@
 # docker-compose -f selenium-docker-compose.yml up --build --abort-on-container-exit
 version: "3"
 services:
+  hub:
+    image: selenium/hub
+    ports:
+      - "4444:4444"
+    networks: ['selenium-grid']
   firefox:
     image: selenium/node-firefox-debug
     volumes:
@@ -24,11 +29,6 @@ services:
       - "5556:5900"
     # pwd to VNC Server : secret
     networks: ['selenium-grid']
-  hub:
-    image: selenium/hub
-    ports:
-      - "4444:4444"
-    networks: ['selenium-grid']
   tests:
     image: automation_tests:1.0
     build:
@@ -39,6 +39,6 @@ services:
     volumes:
       - ./.gradle:/root/.gradle
 #    command: ["./wait-for-grid.sh", "{GRADLE_COMMAND}"]
-    command: ["./wait-for-grid.sh", "./gradlew clean test -Pbrowser=REMOTE"]
+    command: ["./wait-for-grid.sh", "./gradlew clean test --tests ui.SearchTextTest -Pbrowser=REMOTE"]
     networks: ['selenium-grid']
 networks: {selenium-grid: {}}
