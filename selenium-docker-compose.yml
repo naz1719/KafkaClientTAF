@@ -32,6 +32,6 @@ services:
     volumes:
       - ./.gradle:/root/.gradle
 #    command: ["./wait-for-grid.sh", "{GRADLE_COMMAND}"]
-    command: ["./wait-for-grid.sh", "./gradlew clean test"]
+    command: ["./wait-for-grid.sh", "./gradlew clean test -Pbrowser=REMOTE"]
     networks: ['selenium-grid']
 networks: {selenium-grid: {}}
