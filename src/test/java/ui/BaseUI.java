@@ -24,7 +24,16 @@ public abstract class BaseUI {
     @Parameters("browser")
     @BeforeClass
     public void setUp(@Optional("REMOTE" /*REMOTE,CHROME,EDGE,FIREFOX*/) String browser){
+        browser = getBrowserEnvVariable(browser);
         webDriverManager.setBrowserName(browser);
+    }
+
+    private String getBrowserEnvVariable(String browser) {
+        String browserEnvProperty = System.getProperty("browser");
+        if (browserEnvProperty != null) {
+            browser = browserEnvProperty;
+        }
+        return browser;
     }
 
     @AfterMethod(alwaysRun = true)

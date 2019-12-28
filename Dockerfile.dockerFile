@@ -10,7 +10,7 @@
 #   docker run -it taf/man:v1 -e GRADLE_COMMAND='gradlew clean test'
 #   docker run -it taf/man:v1 ./gradlew clean test
 
-FROM adoptopenjdk/openjdk8:latest
+FROM openjdk:8u212-jdk-stretch
 MAINTAINER Nazar Khimin <nazar.khimin@gmail.com>
 
 WORKDIR /usr/src/project
@@ -19,4 +19,4 @@ COPY . .
 
 RUN apt-get update && apt-get install jq -y && apt install dos2unix
 RUN chmod +x wait-for-grid.sh && dos2unix wait-for-grid.sh
-RUN sudo './gradlew'
+RUN ./gradlew
