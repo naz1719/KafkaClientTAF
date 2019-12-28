@@ -23,7 +23,7 @@ services:
     depends_on:
       - hub
     environment:
-      - HUB_HOST=hub
+      - HUB_HOST: hub
     ports:
       - "5555:5555"
       - "5556:5900"
