@@ -3,9 +3,9 @@
 # docker-compose -f selenium-docker-compose.yml up --build --abort-on-container-exit
 version: "3"
 services:
-  selenium-hub:
+  hub:
     image: selenium/hub:3.141.59-neon
-    container_name: selenium-hub
+    container_name: hub
     ports:
       - "4444:4444"
     networks: ['selenium-grid']
@@ -14,9 +14,9 @@ services:
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
-      - selenium-hub
+      - hub
     environment:
-      - HUB_HOST=selenium-hub
+      - HUB_HOST=hub
     ports:
       - "5555:5555"
       - "5556:5900"
@@ -28,7 +28,7 @@ services:
       context: ""
       dockerfile: ./Dockerfile.dockerFile
     depends_on:
-      - selenium-hub
+      - hub
     volumes:
       - ./.gradle:/root/.gradle
 #    command: ["./wait-for-grid.sh", "{GRADLE_COMMAND}"]
