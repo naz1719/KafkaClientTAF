@@ -52,6 +52,7 @@ allure {
 }
 
 test {
+    systemProperty "browser", findProperty("browser")
     // listen to events in the test execution lifecycle
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)

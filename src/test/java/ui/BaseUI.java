@@ -3,11 +3,11 @@ package ui;
 import com.project.inftrastructure.execution.logger.TestLogger;
 import com.project.inftrastructure.execution.logger.UITestListener;
 import com.project.inftrastructure.middlewares.ui.WebDriverManager;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import java.lang.reflect.Method;
@@ -20,18 +20,19 @@ public abstract class BaseUI {
 
     protected TestLogger LOG;
     private WebDriverManager webDriverManager = WebDriverManager.getInstance();
+    public static final String DEFAULT_BROWSER = "CHROME";
 
+    /*REMOTE,CHROME,EDGE,FIREFOX*/
     @Parameters("browser")
     @BeforeClass
-    public void setUp(@Optional("CHROME" /*REMOTE,CHROME,EDGE,FIREFOX*/) String browser){
-        browser = getBrowserEnvVariable(browser);
+    public void setUp(String browser){
+        browser = checkBrowserAndSetDefault(browser);
         webDriverManager.setBrowserName(browser);
     }
 
-    private String getBrowserEnvVariable(String browser) {
-        String browserEnvProperty = System.getProperty("browser");
-        if (browserEnvProperty != null) {
-            browser = browserEnvProperty;
+    private String checkBrowserAndSetDefault(String browser) {
+        if(StringUtils.isBlank(browser)){
+            browser = DEFAULT_BROWSER;
         }
         return browser;
     }
