@@ -8,7 +8,11 @@ Debug mode
 gradle test -Dorg.gradle.debug=true
 
 ### CI and Docker
-
+## Steps to run tests on Jenkins
+1. Navigate to `/CD/docker` path
+2. Run following: `docker-compose -f jenkins-docker-compose.yml up --build --abort-on-container-exit`
+3. In Jenkins `Select custom plugins -> None - > Next`
+4. Create
 
 ## Prerequisites
  * Java 1.8

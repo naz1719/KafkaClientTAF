@@ -1,6 +1,5 @@
-# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
-# Add the `-d` flag at the end for detached execution
-# docker-compose -f selenium-docker-compose.yml up --build --abort-on-container-exit
+# To execute this docker-compose yml file
+# use `docker-compose -f selenium-docker-compose.yml up --build --abort-on-container-exit --scale chrome=3 --scale firefox=3`
 version: "3"
 services:
   chrome:

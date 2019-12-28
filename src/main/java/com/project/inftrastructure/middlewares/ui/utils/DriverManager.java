@@ -9,6 +9,8 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
@@ -30,7 +32,13 @@ public class DriverManager {
      * return instance of Remote driver
      */
    private static final Supplier<WebDriver> remoteDriverSupplier = () -> {
-      return new RemoteWebDriver(setChromeOption());
+       URL gridUrl;
+       try {
+           gridUrl = new URL("http://hub:4444/wd/hub");
+       } catch (MalformedURLException e) {
+           throw new RuntimeException(e);
+       }
+       return new RemoteWebDriver(gridUrl,setChromeOption());
    };
 
     /**

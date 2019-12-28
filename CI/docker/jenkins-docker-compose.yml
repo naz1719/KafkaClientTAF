@@ -1,6 +1,5 @@
-# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
-# Add the `-d` flag at the end for detached execution
-
+# To execute this docker-compose yml file
+# use `docker-compose -f jenkins-docker-compose.yml up --build --abort-on-container-exit`
 version: "3"
 services:
   jenkins_executor:
