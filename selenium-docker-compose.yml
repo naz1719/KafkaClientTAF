@@ -10,9 +10,9 @@ services:
       - hub
     environment:
       - HUB_HOST=hub
-    ports:
-      - "5555:5555"
-      - "5556:5900"
+#    ports:
+#      - "5555:5555"
+#      - "5556:5900"
     # pwd to VNC Server : secret
     networks: ['selenium-grid']
   hub:
