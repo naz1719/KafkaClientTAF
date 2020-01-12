@@ -14,6 +14,11 @@ public class SearchTextTest extends BaseUI {
         searchSteps
                 .typeSearchText(itemToSearch)
                 .submitSearchText();
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         SearchResultSteps searchResultSteps = new SearchResultSteps().get();
         int webResultList = searchResultSteps.getWebResults().size();

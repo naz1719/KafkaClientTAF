@@ -34,12 +34,22 @@ public class DriverManager {
    private static final Supplier<WebDriver> remoteDriverSupplier = () -> {
        URL gridUrl;
        try {
-           gridUrl = new URL("http://hub:4444/wd/hub");
+           // Local Docker
+//           gridUrl = new URL("http://hub:4444/wd/hub");
+           // Selenoid
+           gridUrl = new URL("http://localhost:4444/wd/hub");
        } catch (MalformedURLException e) {
            throw new RuntimeException(e);
        }
-       return new RemoteWebDriver(gridUrl,setChromeOption());
+       return new RemoteWebDriver(gridUrl, desiredCapabilitiesForRemote());
    };
+
+   private static ChromeOptions desiredCapabilitiesForRemote(){
+       ChromeOptions chromeOptions = setChromeOption();
+       chromeOptions.setCapability("enableVNC", true);
+       chromeOptions.setCapability("enableVideo", false);
+       return chromeOptions;
+   }
 
     /**
      * return instance of Chrome driver in headless mode
