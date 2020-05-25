@@ -2,8 +2,8 @@ package api;
 
 import com.project.services.api.quotations.GetRandomQuotationService;
 import com.project.services.api.quotations.dto.Quote;
-import com.project.services.ui.checks.RandomQuestionCheck;
-import com.project.services.ui.repository.RandomQuestionRepository;
+import com.project.services.api.RandomQuestionCheck;
+import com.project.services.api.repository.RandomQuestionRepository;
 import org.testng.annotations.Test;
 
 public class RandomQuotationTest {

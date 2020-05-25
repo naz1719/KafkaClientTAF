@@ -1,4 +1,4 @@
-package com.project.services.ui.checks;
+package com.project.services.api;
 
 import com.project.services.api.quotations.dto.Quote;
 import com.project.services.api.quotations.dto.Value;

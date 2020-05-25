@@ -1,4 +1,4 @@
-package com.project.services.ui.repository;
+package com.project.services.api.repository;
 
 import com.project.services.api.quotations.dto.Quote;
 
