@@ -19,11 +19,18 @@ ext {
 
 
 repositories {
-    jcenter()
-    mavenCentral()
+    mavenCentral{
+        url "https://packages.confluent.io/maven"
+    }
+    jcenter{
+        url "http://jcenter.bintray.com/"
+    }
 }
 
 dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    implementation group: 'org.apache.kafka', name: 'kafka_2.12', version: '2.8.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: selenium_version
@@ -48,7 +55,7 @@ allure {
     useTestNG {
         version = allureVersion
     }
-    downloadLink = "http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allureVersion}/allure-commandline-${allureVersion}.zip"
+    downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allureVersion}/allure-commandline-${allureVersion}.zip"
 }
 
 test {
