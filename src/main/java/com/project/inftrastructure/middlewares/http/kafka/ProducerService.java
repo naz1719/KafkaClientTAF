@@ -1,21 +1,22 @@
 package com.project.inftrastructure.middlewares.http.kafka;
 
-import com.project.inftrastructure.execution.logger.AllureLogger;
-import com.project.inftrastructure.utils.property.PropertyLoader;
+import com.project.events.model.Message;
 import java.util.Collections;
-import java.util.Properties;
+import java.util.List;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProducerService {
-    final static Logger LOG = LoggerFactory.getLogger(AllureLogger.class);
+public class ProducerService extends BaseKafkaService{
 
-    private static final Properties kafkaProperties = PropertyLoader.loadProperties("kafka.properties");
+    final static Logger LOG = LoggerFactory.getLogger(ProducerService.class);
 
-    public void createTopic(String topicName)  {
-        AdminClient adminClient = AdminClient.create(kafkaProperties);
+    public void createTopic(String topicName) {
+        AdminClient adminClient = AdminClient.create(producerKafkaProps);
         NewTopic newTopic = new NewTopic(topicName, 1, (short) 1);
         boolean isPresent = isTopicPresent(adminClient, topicName);
         if (!isPresent) {
@@ -23,6 +24,19 @@ public class ProducerService {
             adminClient.createTopics(Collections.singletonList(newTopic));
             adminClient.close();
         }
+    }
+
+    public void produceEvents(String topicName, List<Message> messageList) {
+        Producer<String, Message> producer = new KafkaProducer<String, Message>(producerKafkaProps);
+        messageList.forEach(message -> {
+            ProducerRecord<String, Message> record = new ProducerRecord<String, Message>(topicName, message.getId().toString(),
+                    message);
+            producer.send(record);
+            LOG.info("Producing record: {}\t{}", message.getId(), message.getMessage());
+        });
+        producer.flush();
+        LOG.info("{} messages were produced to topic {}", messageList.size(), topicName);
+        producer.close();
     }
 
     private boolean isTopicPresent(AdminClient adminClient, String topicName) {
@@ -36,5 +50,4 @@ public class ProducerService {
         }
         return isPresent;
     }
-
 }
