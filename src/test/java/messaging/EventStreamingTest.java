@@ -18,19 +18,12 @@ public class EventStreamingTest {
         producerService.createTopic(inputTopicName);
         List<Message> messageList = prepareTestMessageList();
         producerService.produceEvents(inputTopicName, messageList);
-        consumerService.consumeEvents(inputTopicName);
+        consumerService.consumeEvents(10, inputTopicName);
 //        1. Produce event
 //        2. Save produced event to DB
 //        3. Consume event
 //        4. assert saved and consumed event
 
-    }
-
-    @Test(description = "Produce/Consume event test")
-    public void consumeEventTest(){
-        ConsumerService consumerService = new ConsumerService();
-        String inputTopicName = "test_topic";
-        consumerService.consumeEvents(inputTopicName);
     }
 
     private List<Message> prepareTestMessageList() {
