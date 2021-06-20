@@ -1,5 +1,6 @@
 package com.project.inftrastructure.execution.logger;
 
+import com.project.inftrastructure.utils.CustomUtils;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import java.io.ByteArrayOutputStream;
@@ -42,6 +43,17 @@ public class AllureLogger {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void logSQLResponseAsXML(String queryResponse) {
+        ByteArrayOutputStream stream = CustomUtils.getByteArray(queryResponse);
+        logToConsole(stream);
+        AllureLogger.attachSoapCall("Log SQL Response as xml", stream);
+    }
+
+    @Attachment(value = "{name}", type = "application/xml")
+    public static byte[] attachSoapCall(String name, ByteArrayOutputStream stream) {
+        return attach(stream);
     }
 
     @Step(value = "{log}")

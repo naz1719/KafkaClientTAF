@@ -29,7 +29,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    implementation group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
     implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     // https://mvnrepository.com/artifact/io.confluent/kafka-json-serializer
     implementation group: 'io.confluent', name: 'kafka-json-serializer', version: '6.2.0'
