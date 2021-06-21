@@ -36,7 +36,7 @@ public class DBController extends BaseDB{
     public static void runInsertQuery(String queryString) {
         try {
             Statement statement = getBasicDataSourceSQLServerDriver().getConnection().createStatement();
-            statement.executeUpdate(queryString);
+            statement.execute(queryString);
         } catch (Throwable e) {
             throw new RuntimeException("DBController ERROR: " + e.getMessage(), e);
         }

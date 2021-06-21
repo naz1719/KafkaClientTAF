@@ -20,4 +20,8 @@ public class QueryBox {
         }
         return query;
     }
+
+    public static String getSelectMessageById(Long id){
+        return String.format("select * from events where id = %s;", id);
+    }
 }

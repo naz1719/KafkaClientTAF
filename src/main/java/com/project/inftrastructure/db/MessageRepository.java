@@ -1,7 +1,7 @@
 package com.project.inftrastructure.db;
 
 import com.project.events.model.Message;
-import java.util.Arrays;
+import com.project.inftrastructure.db.dto.MessageDTO;
 import java.util.List;
 
 public class MessageRepository {
@@ -11,11 +11,12 @@ public class MessageRepository {
         DBController.runInsertQuery(insertMessageQuery);
     }
 
-    public static void main(String[] args) {
-
-        Message message = new Message(1L, "message");
-        Message message1 = new Message(2L, "message");
-        MessageRepository messageRepository = new MessageRepository();
-        messageRepository.insertMessageList(Arrays.asList(message, message1));
+    public MessageDTO selectMessageById(Long id){
+        String selectMessageById = QueryBox.getSelectMessageById(id);
+        List<MessageDTO> messageDTOS = DBController.runSelectQueryGetAllRecords(selectMessageById, MessageDTO.class);
+        if(messageDTOS.isEmpty()){
+            throw new RuntimeException("Message by id " +  id + " not found");
+        }
+        return messageDTOS.stream().findFirst().get();
     }
 }
