@@ -1,9 +1,9 @@
-package com.project.inftrastructure.db;
+package com.project.services.kafka.check;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.project.events.model.Message;
-import com.project.inftrastructure.db.dto.MessageDTO;
+import com.project.events.dto.MessageDTO;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;

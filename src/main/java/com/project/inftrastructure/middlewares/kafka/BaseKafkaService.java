@@ -1,4 +1,4 @@
-package com.project.inftrastructure.middlewares.http.kafka;
+package com.project.inftrastructure.middlewares.kafka;
 
 import com.project.inftrastructure.utils.property.PropertyLoader;
 import java.util.Properties;

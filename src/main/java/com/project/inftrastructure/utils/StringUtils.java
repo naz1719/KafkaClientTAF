@@ -98,7 +98,4 @@ public final class StringUtils {
       return prettyJson;
    }
 
-   public static boolean isStringUUID(String string) {
-      return RegexPatterns.UUID_PATTERN.matcher(string).matches();
-   }
 }

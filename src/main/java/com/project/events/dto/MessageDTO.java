@@ -1,4 +1,4 @@
-package com.project.inftrastructure.db.dto;
+package com.project.events.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

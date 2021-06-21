@@ -1,11 +1,11 @@
 package messaging;
 
 import com.project.events.model.Message;
-import com.project.inftrastructure.db.MessageCheck;
-import com.project.inftrastructure.db.MessageRepository;
-import com.project.inftrastructure.db.dto.MessageDTO;
-import com.project.inftrastructure.middlewares.http.kafka.ConsumerService;
-import com.project.inftrastructure.middlewares.http.kafka.ProducerService;
+import com.project.services.kafka.check.MessageCheck;
+import com.project.services.kafka.repository.MessageRepository;
+import com.project.events.dto.MessageDTO;
+import com.project.inftrastructure.middlewares.kafka.ConsumerService;
+import com.project.inftrastructure.middlewares.kafka.ProducerService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,10 +1,10 @@
-package com.project.inftrastructure.db;
+package com.project.services.kafka.queryBox;
 
 import com.project.events.model.Message;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
-public class QueryBox {
+public class MessageQueryBox {
 
     public static String getInsertMessageQuery(List<Message> messageList) {
         String query = "INSERT INTO events(id, message) VALUES";
