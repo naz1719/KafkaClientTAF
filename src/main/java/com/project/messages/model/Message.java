@@ -1,4 +1,4 @@
-package com.project.events.model;
+package com.project.messages.model;
 
 public class Message {
 

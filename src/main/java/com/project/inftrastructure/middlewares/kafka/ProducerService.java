@@ -1,6 +1,6 @@
 package com.project.inftrastructure.middlewares.kafka;
 
-import com.project.events.model.Message;
+import com.project.messages.model.Message;
 import java.util.Collections;
 import java.util.List;
 import org.apache.kafka.clients.admin.AdminClient;

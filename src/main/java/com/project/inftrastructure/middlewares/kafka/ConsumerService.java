@@ -1,6 +1,6 @@
 package com.project.inftrastructure.middlewares.kafka;
 
-import com.project.events.model.Message;
+import com.project.messages.model.Message;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ public class ConsumerService extends BaseKafkaService {
 
     final static Logger LOG = LoggerFactory.getLogger(ProducerService.class);
 
-    public List<ConsumerRecord<String, Message>> consumeEvents(int waitSeconds, String topicName) {
+    public List<ConsumerRecord<String, Message>> consumeMessages(int waitSeconds, String topicName) {
         KafkaConsumer<String, Message> consumer = new KafkaConsumer<String, Message>(consumerKafkaProps);
         consumer.subscribe(Collections.singletonList(topicName));
         List<ConsumerRecord<String, Message>> consumerRecordList = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.project.events.dto;
+package com.project.messages.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

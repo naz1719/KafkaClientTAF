@@ -1,9 +1,9 @@
 package messaging;
 
-import com.project.events.model.Message;
+import com.project.messages.model.Message;
 import com.project.services.kafka.check.MessageCheck;
 import com.project.services.kafka.repository.MessageRepository;
-import com.project.events.dto.MessageDTO;
+import com.project.messages.dto.MessageDTO;
 import com.project.inftrastructure.middlewares.kafka.ConsumerService;
 import com.project.inftrastructure.middlewares.kafka.ProducerService;
 import java.util.ArrayList;
@@ -13,15 +13,15 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.testng.annotations.Test;
 
-public class EventStreamingTest {
+public class MessageStreamingTest {
 
     ProducerService producerService = new ProducerService();
     ConsumerService consumerService = new ConsumerService();
     MessageRepository messageRepository = new MessageRepository();
 
     @Test(description = "Produce/Consume event test, positive scenario")
-    public void positiveEventTest() {
-        List<Message> actualMessageList = baseEventTest();
+    public void positiveMessageStreamingTest() {
+        List<Message> actualMessageList = baseMessageEventTest();
         // assert
         List<MessageDTO> expectedMessageDTOList = prepareExpectedMessageDTOList(
                 messageRepository, actualMessageList);
@@ -29,8 +29,8 @@ public class EventStreamingTest {
     }
 
     @Test(description = "Produce/Consume event test, negative scenario")
-    public void negativeEventTest() {
-        List<Message> actualMessageList = baseEventTest();
+    public void negativeMessageStreamingTest() {
+        List<Message> actualMessageList = baseMessageEventTest();
         // assert
         List<MessageDTO> expectedMessageDTOList = prepareExpectedMessageDTOList(
                 messageRepository, actualMessageList);
@@ -38,7 +38,7 @@ public class EventStreamingTest {
         MessageCheck.getInstance().validateMessageList(expectedMessageDTOList, actualMessageList);
     }
 
-    private List<Message> baseEventTest() {
+    private List<Message> baseMessageEventTest() {
         // arrange
         String inputTopicName = "test_topic";
         producerService.createTopic(inputTopicName);
@@ -46,11 +46,10 @@ public class EventStreamingTest {
         // act
         producerService.produceEvents(inputTopicName, messageList);
         messageRepository.insertMessageList(messageList);
-        List<ConsumerRecord<String, Message>> consumerRecordList = consumerService.consumeEvents(10, inputTopicName);
-        List<Message> actualMessageList = consumerRecordList.stream()
+        List<ConsumerRecord<String, Message>> consumerRecordList = consumerService.consumeMessages(10, inputTopicName);
+        return consumerRecordList.stream()
                 .map(ConsumerRecord::value)
                 .collect(Collectors.toList());
-        return actualMessageList;
     }
 
     private List<MessageDTO> prepareExpectedMessageDTOList(MessageRepository messageRepository,

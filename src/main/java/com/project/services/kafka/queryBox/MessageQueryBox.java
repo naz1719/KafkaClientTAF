@@ -1,6 +1,6 @@
 package com.project.services.kafka.queryBox;
 
-import com.project.events.model.Message;
+import com.project.messages.model.Message;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
