@@ -4,17 +4,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class Message {
+public class MessageDTO {
 
     @Column(name = "id")
     private Long id;
     @Column(name = "message")
     private String message;
 
-    public Message() {
+    public MessageDTO() {
     }
 
-    public Message(Long id, String message) {
+    public MessageDTO(Long id, String message) {
         this.id = id;
         this.message = message;
     }

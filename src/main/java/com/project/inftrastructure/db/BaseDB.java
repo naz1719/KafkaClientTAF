@@ -7,9 +7,9 @@ import java.util.Properties;
 import org.apache.commons.dbcp.BasicDataSource;
 
 public class BaseDB {
-    protected static ResultSet getResultSet(String queryString, BasicDataSource dataSource) {
+    protected static ResultSet getResultSet(String queryString) {
         try {
-            Statement statement = dataSource.getConnection().createStatement();
+            Statement statement = getBasicDataSourceSQLServerDriver().getConnection().createStatement();
             ResultSet rs = statement.executeQuery(queryString);
             return rs;
         } catch (Throwable e) {

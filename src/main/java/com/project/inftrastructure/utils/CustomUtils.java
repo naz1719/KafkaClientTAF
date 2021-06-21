@@ -36,6 +36,5 @@ public class CustomUtils {
             throw new RuntimeException(e);
         }
         return byteArrayOutputStream;
-
     }
 }

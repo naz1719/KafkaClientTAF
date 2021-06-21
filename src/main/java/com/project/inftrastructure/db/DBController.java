@@ -18,8 +18,7 @@ public class DBController extends BaseDB{
 
     @Step(value = "Run Select Query [ {queryString} ]")
     public static <T> T runSelectQuery(String queryString, Class<T> type) {
-        BasicDataSource dataSource = getBasicDataSourceSQLServerDriver();
-        ResultSet resultSet = getResultSet(queryString, dataSource);
+        ResultSet resultSet = getResultSet(queryString);
         ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
         List<T> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, type);
         if (pojoList == null) {
@@ -33,10 +32,19 @@ public class DBController extends BaseDB{
         return pojoList.get(0);
     }
 
+    @Step(value = "Run Insert Query [ {queryString} ]")
+    public static void runInsertQuery(String queryString) {
+        try {
+            Statement statement = getBasicDataSourceSQLServerDriver().getConnection().createStatement();
+            statement.executeUpdate(queryString);
+        } catch (Throwable e) {
+            throw new RuntimeException("DBController ERROR: " + e.getMessage(), e);
+        }
+    }
+
     @Step(value = "Run Select Query [ {queryString} ]")
     public static <T> List<T> runSelectQueryGetAllRecords(String queryString, Class<T> type) {
-        BasicDataSource dataSource = getBasicDataSourceSQLServerDriver();
-        ResultSet resultSet = getResultSet(queryString, dataSource);
+        ResultSet resultSet = getResultSet(queryString);
         ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
         List<T> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, type);
         if (pojoList == null) {
