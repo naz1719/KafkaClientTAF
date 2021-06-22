@@ -20,7 +20,3 @@ services:
     restart: always
 volumes:
   dbdata:
-/usr/src/taf/build/reports/tests/test/index:
-  html:
-    docker cp 915ba76627e4:/usr/src/taf/build/reports/tests/test/index.html .
-    docker cp 915ba76627e4:/usr/src/taf/build/reports/allure-report .
