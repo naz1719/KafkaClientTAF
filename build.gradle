@@ -8,12 +8,12 @@ version '1.0-SNAPSHOT'
 description = "Base Test Automation Framework"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 ext {
-    allureVersion = "2.13.0"
+    allureVersion = "2.13.9"
     selenium_version = '3.141.59'
 }
 
@@ -29,23 +29,17 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-    implementation group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
-    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
-    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
-    // https://mvnrepository.com/artifact/io.confluent/kafka-json-serializer
-    implementation group: 'io.confluent', name: 'kafka-json-serializer', version: '6.2.0'
-    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
+    compile 'org.junit.jupiter:junit-jupiter:5.4.2'
     compile group: 'io.confluent', name: 'kafka-json-serializer', version: '6.2.0'
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: selenium_version
-    compile group: 'io.qameta.allure', name: 'allure-testng', version: allureVersion
-    compile group: 'io.qameta.allure', name: 'allure-rest-assured', version: allureVersion
-    compile("io.github.bonigarcia:webdrivermanager:3.7.1")
-    compile group: 'io.rest-assured', name: 'rest-assured', version: '4.1.2'
+    compile group: 'io.qameta.allure', name: 'allure-testng', version: '2.13.0'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.13.0'
     compile group: 'org.testng', name: 'testng', version: '7.0.0'
@@ -53,7 +47,7 @@ dependencies {
 }
 
 wrapper {
-    gradleVersion = '6.0.1'
+    gradleVersion = '6.9'
 }
 
 allure {
@@ -67,18 +61,12 @@ allure {
 }
 
 test {
-    systemProperty "browser", findProperty("browser")
     // listen to events in the test execution lifecycle
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
     }
 
     // enable TestNG support (default is JUnit)
-    useTestNG() {
-//        dependsOn cleanTest
-        if (project.hasProperty('ui')) {
-            suites 'suites/googleSearch.xml'
-        }
-    }
+    useTestNG() {}
     finalizedBy 'allureReport'
 }
