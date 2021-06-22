@@ -1,0 +1,6 @@
+-- Creation of product table
+CREATE TABLE IF NOT EXISTS EMPLOYEE1 (
+  ID INT NOT NULL,
+  MESSAGE varchar(250) NOT NULL,
+  PRIMARY KEY (ID)
+);
