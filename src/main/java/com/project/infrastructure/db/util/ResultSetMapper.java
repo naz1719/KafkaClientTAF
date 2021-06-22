@@ -13,8 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 public class ResultSetMapper<T> {
-    @SuppressWarnings("unchecked")
-    public List<T> mapRersultSetToObject(ResultSet rs, Class outputClass) {
+    public List<T> mapResultSetToObject(ResultSet rs, Class outputClass) {
         List<T> outputList = null;
         try {
             // make sure resultset is not null

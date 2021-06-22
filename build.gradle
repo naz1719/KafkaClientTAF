@@ -45,6 +45,7 @@ dependencies {
     compile group: 'org.testng', name: 'testng', version: '7.0.0'
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     compile group: 'org.assertj', name: 'assertj-core', version: '3.14.0'
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.6'
 }
 
 wrapper {

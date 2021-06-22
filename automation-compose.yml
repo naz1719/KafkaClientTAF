@@ -1,0 +1,13 @@
+# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
+#  docker-compose -f automation-compose.yml up
+# Add the `-d` flag at the end for detached execution
+version: "3"
+services:
+  automation:
+    image: taf/90poe:v1
+    container_name: automation
+    build:
+      context: ../KafkaClientTAF
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    network_mode: "host"

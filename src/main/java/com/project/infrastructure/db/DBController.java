@@ -20,7 +20,7 @@ public class DBController extends BaseDB{
     public static <T> T runSelectQuery(String queryString, Class<T> type) {
         ResultSet resultSet = getResultSet(queryString);
         ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
-        List<T> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, type);
+        List<T> pojoList = resultSetMapper.mapResultSetToObject(resultSet, type);
         if (pojoList == null) {
             Assert.fail("Result is empty. Please check if database table is empty [" + queryString + "]");
         }
@@ -46,7 +46,7 @@ public class DBController extends BaseDB{
     public static <T> List<T> runSelectQueryGetAllRecords(String queryString, Class<T> type) {
         ResultSet resultSet = getResultSet(queryString);
         ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
-        List<T> pojoList = resultSetMapper.mapRersultSetToObject(resultSet, type);
+        List<T> pojoList = resultSetMapper.mapResultSetToObject(resultSet, type);
         if (pojoList == null) {
             AllureLogger.logSQLResponseAsXML("Result is empty [" + queryString + "]");
         } else {

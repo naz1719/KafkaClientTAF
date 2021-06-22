@@ -1,7 +1,8 @@
-# docker build --tag taf/90poe . --file=Dockerfile
-# docker run -p 8080:8080 -it taf/90poe
-# docker run -it taf/90poe sh
-# docker push eu.gcr.io/taf/90poe
+# docker build --tag taf/90poe:v1 . --file=Dockerfile
+# docker run -p 52329:52329 -it taf/90poe:v1
+# docker run -it taf/90poe:v1
+# docker run -it taf/90poe:v1 sh
+# docker push eu.gcr.io/taf/90poe:v1
 
 # set the base image
 FROM gradle:6.9.0-jdk11-openj9
