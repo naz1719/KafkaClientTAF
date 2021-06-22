@@ -65,7 +65,7 @@ public class MessageStreamingTest {
         int msgCount = 3;
         List<Message> messageList = new ArrayList<>();
         for (long i = 1; i <= msgCount; i++) {
-            Long id = Long.valueOf(RandomStringUtils.randomNumeric(1));
+            Long id = Long.valueOf(RandomStringUtils.randomNumeric(5));
             String message = "message_" + id;
             messageList.add(new Message(id, message));
         }

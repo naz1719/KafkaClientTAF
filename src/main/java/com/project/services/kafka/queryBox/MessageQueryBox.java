@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 public class MessageQueryBox {
 
     public static String getInsertMessageQuery(List<Message> messageList) {
-        String query = "INSERT INTO events(id, message) VALUES";
+        String query = "INSERT INTO messages(id, message) VALUES";
         if (messageList.size() == 1) {
             Message message = messageList.get(0);
             query +=String.format(" (%s,'%s')", message.getId(), message.getMessage());
@@ -22,6 +22,6 @@ public class MessageQueryBox {
     }
 
     public static String getSelectMessageById(Long id){
-        return String.format("select * from events where id = %s;", id);
+        return String.format("select * from messages where id = %s;", id);
     }
 }

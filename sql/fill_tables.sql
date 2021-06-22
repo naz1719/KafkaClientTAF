@@ -1,2 +1,2 @@
 INSERT INTO messages(id, message)
-VALUES (1,'message 1'), (2,'message 2'), (3,'message 3');
+VALUES (11111,'message 11111'), (22222,'message 22222'), (33333,'message 33333');
