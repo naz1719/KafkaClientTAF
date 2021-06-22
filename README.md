@@ -1,5 +1,5 @@
 
-# UI and APU gTAA (Generic test automation architecture)
+# 90PoE Test task
 ## Env
 Java 11
 ### Steps to run tests
