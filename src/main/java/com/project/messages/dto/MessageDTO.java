@@ -34,4 +34,12 @@ public class MessageDTO {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "MessageDTO{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
