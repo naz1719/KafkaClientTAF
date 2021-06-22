@@ -10,11 +10,11 @@
 # docker push eu.gcr.io/taf/90poe:v1.0
 
 # set the base image
-FROM gradle:6.9.0-jre11-openj9
+FROM gradle:6.9-jre11-openj9
 MAINTAINER Nazar Khimin
 
 WORKDIR /usr/src/taf
 COPY . .
-#  RUN gradlew build
+RUN gradlew build
 
 #  ENTRYPOINT gradlew test --tests "messaging.MessageStreamingTest"
