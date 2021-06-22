@@ -1,13 +1,10 @@
 
 # 90PoE Test task
-## Env
-Java 11
 ### Steps to run tests
-1. Run following: `docker-compose -f jenkins-docker-compose.yml up --build --abort-on-container-exit`
-2. Run following: `gradle test`
-3. Open HTML report by path `build\reports\allure-report\index.html`
-Debug mode
-`gradle test -Dorg.gradle.debug=true`
+1. Run TestEnv: `test-env/launchTestEnv.sh`
+1. Run DB: `test-env/launchDB.bat`
+2. Run Test: `test-env/runTests.bat`
+3. Test results from container will move to local, open newly created `\allure-report\index.html`
 
 ## Prerequisites
  * Java 11
