@@ -1,4 +1,4 @@
-package com.project.inftrastructure.utils.property;
+package com.project.infrastructure.utils.property;
 
 import org.apache.commons.lang3.StringUtils;
 

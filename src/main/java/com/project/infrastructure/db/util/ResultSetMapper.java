@@ -1,4 +1,4 @@
-package com.project.inftrastructure.db.util;
+package com.project.infrastructure.db.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

@@ -1,4 +1,4 @@
-package com.project.inftrastructure.utils;
+package com.project.infrastructure.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

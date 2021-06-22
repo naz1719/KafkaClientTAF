@@ -1,6 +1,6 @@
-package com.project.inftrastructure.execution.logger;
+package com.project.infrastructure.execution.logger;
 
-import com.project.inftrastructure.utils.CustomUtils;
+import com.project.infrastructure.utils.CustomUtils;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import java.io.ByteArrayOutputStream;

@@ -1,8 +1,8 @@
-package com.project.inftrastructure.db;
+package com.project.infrastructure.db;
 
-import com.project.inftrastructure.db.util.ResultSetMapper;
-import com.project.inftrastructure.execution.logger.AllureLogger;
-import com.project.inftrastructure.utils.CustomUtils;
+import com.project.infrastructure.db.util.ResultSetMapper;
+import com.project.infrastructure.execution.logger.AllureLogger;
+import com.project.infrastructure.utils.CustomUtils;
 import io.qameta.allure.Step;
 import java.sql.ResultSet;
 import java.sql.SQLException;

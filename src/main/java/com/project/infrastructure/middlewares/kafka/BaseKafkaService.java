@@ -1,6 +1,6 @@
-package com.project.inftrastructure.middlewares.kafka;
+package com.project.infrastructure.middlewares.kafka;
 
-import com.project.inftrastructure.utils.property.PropertyLoader;
+import com.project.infrastructure.utils.property.PropertyLoader;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;

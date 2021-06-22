@@ -1,4 +1,4 @@
-package com.project.inftrastructure.middlewares.kafka;
+package com.project.infrastructure.middlewares.kafka;
 
 import com.project.messages.model.Message;
 import java.util.Collections;

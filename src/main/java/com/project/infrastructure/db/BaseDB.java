@@ -1,6 +1,6 @@
-package com.project.inftrastructure.db;
+package com.project.infrastructure.db;
 
-import com.project.inftrastructure.utils.property.PropertyLoader;
+import com.project.infrastructure.utils.property.PropertyLoader;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;

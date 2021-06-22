@@ -1,4 +1,4 @@
-package com.project.inftrastructure.utils;
+package com.project.infrastructure.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;

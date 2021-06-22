@@ -2,7 +2,7 @@ package com.project.services.kafka.repository;
 
 import com.project.messages.model.Message;
 import com.project.messages.dto.MessageDTO;
-import com.project.inftrastructure.db.DBController;
+import com.project.infrastructure.db.DBController;
 import com.project.services.kafka.queryBox.MessageQueryBox;
 import java.util.List;
 
