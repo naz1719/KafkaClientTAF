@@ -15,6 +15,9 @@
   * [AllureReport 2.0 Framework](https://github.com/allure-framework/) - A flexible lightweight multi-language test report tool.
   * [Log4j](https://logging.apache.org/log4j/2.x/) - A flexible lightweight logger.
 
-          
+Sample of generated report
+          ![image](https://user-images.githubusercontent.com/16464652/123090737-2b4ec280-d431-11eb-809f-3fafa46b0796.png)
+![image](https://user-images.githubusercontent.com/16464652/123090760-3144a380-d431-11eb-88c9-224ec0178051.png)
+
 ## Authors
 * **Khimin Nazar** - *Initial work* - [Khimin Nazar](https://github.com/naz1719)
