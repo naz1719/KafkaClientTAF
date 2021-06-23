@@ -1,13 +1,13 @@
 package com.project.services.kafka.check;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.project.messages.model.Message;
 import com.project.messages.dto.MessageDTO;
+import com.project.messages.model.Message;
 import io.qameta.allure.Step;
+
 import java.util.List;
 import java.util.stream.Collectors;
-import org.assertj.core.api.SoftAssertions;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MessageCheck {
 
@@ -21,14 +21,12 @@ public class MessageCheck {
     }
 
     @Step(value = "Check message list")
-    public void validateMessageList(List<MessageDTO> actualList, List<Message> expectedList) {
-        SoftAssertions sa = new SoftAssertions();
-
-        List<Message> messageDTOList = actualList
+    public void validateMessageList(List<Message> actualList, List<MessageDTO> expectedDTOList) {
+        List<Message> expectedList = expectedDTOList
                 .stream()
                 .map(messageDTO -> new Message(messageDTO.getId(), messageDTO.getMessage()))
                 .collect(Collectors.toList());
-        sa.assertThat(expectedList).containsAll(messageDTOList);
-        sa.assertAll();
+
+        assertThat(expectedList).containsExactlyElementsOf(actualList);
     }
 }

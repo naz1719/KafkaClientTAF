@@ -46,7 +46,8 @@ dependencies {
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     compile group: 'org.assertj', name: 'assertj-core', version: '3.14.0'
     compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.6'
-    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '3.0.1'
+    compile "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    compile "org.glassfish.jaxb:jaxb-runtime:2.3.2"
 }
 
 wrapper {

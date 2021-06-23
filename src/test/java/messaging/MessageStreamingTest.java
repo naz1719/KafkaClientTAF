@@ -29,7 +29,7 @@ public class MessageStreamingTest {
         // assert
         List<MessageDTO> expectedMessageDTOList = prepareExpectedMessageDTOList(
                 messageRepository, actualMessageList);
-        MessageCheck.getInstance().validateMessageList(expectedMessageDTOList, actualMessageList);
+        MessageCheck.getInstance().validateMessageList(actualMessageList, expectedMessageDTOList);
     }
 
     @Test(description = "Produce/Consume event test, negative scenario")
@@ -39,7 +39,7 @@ public class MessageStreamingTest {
         List<MessageDTO> expectedMessageDTOList = prepareExpectedMessageDTOList(
                 messageRepository, actualMessageList);
         expectedMessageDTOList.add(new MessageDTO(46556L, "message"));
-        MessageCheck.getInstance().validateMessageList(expectedMessageDTOList, actualMessageList);
+        MessageCheck.getInstance().validateMessageList(actualMessageList, expectedMessageDTOList);
     }
 
     private List<Message> baseMessageEventTest() {
@@ -71,7 +71,7 @@ public class MessageStreamingTest {
         int msgCount = 3;
         List<Message> messageList = new ArrayList<>();
         for (long i = 1; i <= msgCount; i++) {
-            Long id = Long.valueOf(RandomStringUtils.randomNumeric(5));
+            Long id = Long.valueOf(RandomStringUtils.randomNumeric(8));
             String message = "message_" + id;
             messageList.add(new Message(id, message));
         }
